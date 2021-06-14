@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class RegisterController extends Controller
 {
@@ -50,8 +53,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'firstname' => ['required', 'string'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email','/\.(?:cn|co|cv)\b/', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -62,12 +66,44 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+  public function register(Request $request)
+  {
+     $user = new User();
+
+     $user->firstname = $request->firstname;
+     $user->lastname = $request->lastname;
+     $user->email = $request->email;
+     $user->password = Hash::make($request->password);
+     $user->verification_code = sha1(time());
+     $user->save();
+
+     if($user != null)
+     {
+         MailController::sendSignupEmail($user->firstname, $user->lastname, $user->email, $user->verification_code); 
+         return redirect()->back()->with(session()->flash('alert-success', 'Votre compte a été créée avec succès ! Merci de valider votre compte en verifiant votre boite mail @efrei.net'));
+     
+     }
+
+     return redirect()->back()->with(session()->flash('alert-danger', "Oops ... Quelque chose s'est mal passé "));
+     
+
+  }
+
+  public function verifyUser()
+  {
+    $verification_code =   FacadesRequest::get('code') ;
+    
+    $user = User::where(['verification_code' => $verification_code ])->first();
+
+    if($user != null)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user->is_verified = 1;
+        $user->save();
+        return redirect()->route('login')->with(session()->flash('alert-success', "Merci ! Ton compte a été vérifié avec succès. Connectes toi pour accéder à toutes les ressources "));
+     
     }
+
+    return redirect()->route('login')->with(session()->flash('alert-danger', "Oops ... Code de vérification non valide "));
+     
+  }
 }
