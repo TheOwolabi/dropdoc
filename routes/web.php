@@ -27,3 +27,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/verify', 'App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
+
+Route::resource('/projet', 'App\Http\Controllers\ProjetController');
+
+Route::resource('/filiere', 'App\Http\Controllers\FiliereController');

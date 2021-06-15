@@ -24,7 +24,14 @@
                             </div>
                         @endif
 
-                        {{ __('You are logged in!') }}
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <a href="{{route('projet.create')}}" type="submit"  class="btn btn-dark">
+                                    {{ __('Nouveau projet') }}
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endif
