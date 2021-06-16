@@ -1,6 +1,21 @@
-@extends('layouts.app')
+@extends('layouts.projet')
 
 @section('content')
+<style>
+    .container {
+        max-width: 500px;
+    }
+    dl, ol, ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    .imgPreview img {
+        padding: 8px;
+        max-width: 100px;
+    } 
+</style>
+
 <div class="container-fluid mt-4 ">
     <div id="collapseExample" class="col-md-5 mx-auto mt-4 bg-light shadow-sm p-4 ">
         <form action="{{route('projet.store')}}" class="" method="post" enctype="multipart/form-data">  
@@ -72,41 +87,71 @@
                         @enderror
                     </center> 
                 </div>
+
+                <div class="form-group ">
+                    <center> <label for="filiere"><strong>Filière</strong></label> 
+    
+                        <select name="filiere" id="filiere" class="form-control @error('filiere') is-invalid @enderror">
+                            <option value="" style="display: none;">  </option>
+                            @foreach ($filieres as $filiere)
+                                <option value="{{$filiere->id}}"> {{$filiere->nom}} </option>
+                            @endforeach
+                        </select>
+                       
+                        @error('filiere')
+                            <span class="invalid-feedback">
+                                {{$message}}
+                            </span>
+                        @enderror
+                    </center>
+                </div>
+
+                <div class="container mt-5">
+                    <h3 class="text-center mb-5">Rajoute des fichiers </h3>
+                    {{-- <form action="{{route('projet.store')}}" method="post" enctype="multipart/form-data"> --}}
+                        @csrf
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                        @endif
+            
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+            
+                        <div class="user-image mb-3 text-center">
+                            <div class="imgPreview"> </div>
+                        </div>            
+            
+                        <div class="custom-file">
+                            <input type="file" name="File[]" class="custom-file-input" id="images" multiple="multiple">
+                          
+                            
+                            <label class="custom-file-label" for="images">Choose image</label>
+                        </div>
+            
+                        <button type="submit" name="save" class="btn btn-primary btn-block mt-4">
+                            Upload les fichiers
+                        </button>
+                    {{-- </form> --}}
+                </div>
+            
             
 
 
-            <div class="form-group ">
-                <center> <label for="filiere"><strong>Filière</strong></label> 
-
-                    <select name="filiere" id="filiere" class="form-control @error('filiere') is-invalid @enderror">
-                        <option value="" style="display: none;">  </option>
-                        @foreach ($filieres as $filiere)
-                            <option value="{{$filiere->id}}"> {{$filiere->nom}} </option>
-                        @endforeach
-                    </select>
-                   
-                    @error('filiere')
-                        <span class="invalid-feedback">
-                            {{$message}}
-                        </span>
-                    @enderror
-                </center>
-            </div>
+          
                             
-            {{-- <div class="form-group ">
-                <center> <label for="content"><strong>Description</strong></label> 
-                    <textarea name="content" class="form-control rounded-0 @error('content') is-invalid @enderror" id="content" cols="20" rows="8">{{$projet->content ?? old('content') }}</textarea>
-                
-                    @error('content')
-                    <span class="invalid-feedback">
-                        {{$message}}
-                    </span>
-                    @enderror
-                </center>
-            </div>   --}}
+            
 
             <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-outline-primary shadow-sm ">Ajouter</button>
+                <button type="submit" name="submit" class="btn btn-outline-primary shadow-sm ">Ajouter</button>
             </div>
         </form>
     </div>

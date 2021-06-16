@@ -31,3 +31,5 @@ Route::get('/verify', 'App\Http\Controllers\Auth\RegisterController@verifyUser')
 Route::resource('/projet', 'App\Http\Controllers\ProjetController');
 
 Route::resource('/filiere', 'App\Http\Controllers\FiliereController');
+
+Route::resource('/file', 'App\Http\Controllers\FileController');
