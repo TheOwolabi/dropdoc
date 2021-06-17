@@ -16,6 +16,8 @@ class MailController extends Controller
             'verification_code' => $verification_code
         ];
 
+        dd($email);
+
         Mail::to($email)->send(new SignUpEmail($data));
     }
 }
