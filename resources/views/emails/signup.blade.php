@@ -10,7 +10,7 @@
     Salutations {{$email_data['firstname']}}, <br>
     Nous sommes heureux de te compter parmis nous ! 
    <p>
-       Merci de vérifier ton compte en cliquant sur ce <a href="http://localhost/dropdoc/public/verify?code={{$email_data['verification_code']}}">lien</a> 
+       Merci de vérifier ton compte en cliquant sur ce <a href="https://mvp-dropdoc.herokuapp.com/public/verify?code={{$email_data['verification_code']}}">lien</a> 
     </p> 
 </body>
 </html>
