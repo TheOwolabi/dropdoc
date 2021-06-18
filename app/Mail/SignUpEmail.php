@@ -28,7 +28,7 @@ class SignUpEmail extends Mailable
      */
     public function build()
     {
-        return $this->from(env('MAIL_USERNAME'),'Dropdoc')->
+        return $this->from(env('MAILGUN_SMTP_LOGIN'),'Dropdoc')->
         subject("Bienvenue sur Dropdoc")->
         view('emails.signup', ['email_data' => $this->email_data]);
     }
