@@ -18,7 +18,9 @@ class ProjetController extends Controller
      */
     public function index()
     {
-        //
+        $projets = Projet::all();
+       
+        return view('projet.all',compact('projets'));
     }
 
     /**
@@ -31,6 +33,8 @@ class ProjetController extends Controller
         $filieres = Filiere::all();
         return view('projet.create',compact('filieres'));
     }
+
+    
 
     /**
      * Store a newly created resource in storage.
@@ -49,30 +53,30 @@ class ProjetController extends Controller
           
               if($request->hasfile('File')) 
               {
-
-           
       
                   foreach($request->file('File') as $file)
                   {
-                        $fileModal = new Fichier();
+                    $fileModal = new Fichier();
 
-                      $filenameWithExt = $file->getClientOriginalName();
-                      // Get just filename
-                      $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                      // Get just ext
-                      $extension = $file->getClientOriginalExtension();
-                      // Filename to store
-                      $fileNameToStore= $filename.'_'.time().'.'.$extension;
-                      // Upload Image
-                      $path = $file->storeAs('public/files', $fileNameToStore);
-
-                 
-                      $fileModal->nom = $fileNameToStore;
-                      $fileModal->extension = $extension;
-                      $fileModal->user_id = Auth::id();
-                  
-                      $fileModal->save();
-                    }
+                    $filenameWithExt = $file->getClientOriginalName();
+                    // Get just filename
+                    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                    // Get just ext
+                    $extension = $file->getClientOriginalExtension();
+                    // Filename to store
+                    $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                    // Upload Image
+                    $path = $file->storeAs('public/files', $fileNameToStore);
+            
+               
+                    $fileModal->nom = $fileNameToStore;
+                    $fileModal->extension = $extension;
+                    $fileModal->user_id = Auth::id();
+                
+                    $fileModal->save();
+             
+                
+                  }
 
                     
                         $fdate = $request->debut;
@@ -106,98 +110,97 @@ class ProjetController extends Controller
               }
 
         }
-    else
-    {
-        if($request->hasfile('File')) 
+        else
         {
-
-     
-
-            foreach($request->file('File') as $file)
+            if($request->hasfile('File')) 
             {
-                  $fileModal = new Fichier();
 
-                $filenameWithExt = $file->getClientOriginalName();
-                // Get just filename
-                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                // Get just ext
-                $extension = $file->getClientOriginalExtension();
-                // Filename to store
-                $fileNameToStore= $filename.'_'.time().'.'.$extension;
-                // Upload Image
-                $path = $file->storeAs('public/files', $fileNameToStore);
+        
 
-           
-                $fileModal->nom = $fileNameToStore;
-                $fileModal->extension = $extension;
-                $fileModal->user_id = Auth::id();
+                foreach($request->file('File') as $file)
+                {
+                    $fileModal = new Fichier();
+
+                    $filenameWithExt = $file->getClientOriginalName();
+                    // Get just filename
+                    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                    // Get just ext
+                    $extension = $file->getClientOriginalExtension();
+                    // Filename to store
+                    $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                    // Upload Image
+                    $path = $file->storeAs('public/files', $fileNameToStore);
+
             
-                $fileModal->save();
-              }
+                    $fileModal->nom = $fileNameToStore;
+                    $fileModal->extension = $extension;
+                    $fileModal->user_id = Auth::id();
+                
+                    $fileModal->save();
+                }
 
-              
-                  $fdate = $request->debut;
-                  $tdate = $request->fin;
-                  $datetime1 = new \DateTime($fdate);
-                  $datetime2 = new \DateTime($tdate);
-                  $interval = $datetime1->diff($datetime2);
+                
+                    $fdate = $request->debut;
+                    $tdate = $request->fin;
+                    $datetime1 = new \DateTime($fdate);
+                    $datetime2 = new \DateTime($tdate);
+                    $interval = $datetime1->diff($datetime2);
 
-              
-              $projet = Projet::create([
-                      'nom' => $request->nom,
-                      'description' => $request->description,
-                      'duree' => $interval->days,
-                      'debut' => $request->debut,
-                      'fin' => $request->fin,
-                      'filiere_id' => $request->filiere,
-                      'user_id' => Auth::id(),
-                  ]);
+                
+                $projet = Projet::create([
+                        'nom' => $request->nom,
+                        'description' => $request->description,
+                        'duree' => $interval->days,
+                        'debut' => $request->debut,
+                        'fin' => $request->fin,
+                        'filiere_id' => $request->filiere,
+                        'user_id' => Auth::id(),
+                    ]);
 
-                  $files = Fichier::where('user_id',Auth::id())->get();
+                    $files = Fichier::where('user_id',Auth::id())->get();
 
-                  foreach ($files as $file ) 
-                  {
-                    $file->projet_id = $projet->id;
-                    $file->save();
-                  }
+                    foreach ($files as $file ) 
+                    {
+                        $file->projet_id = $projet->id;
+                        $file->save();
+                    }
+
+
+        
+                return back()->with('success', 'Creation du projet réussi !');
+            }
 
 
     
+
+            $fdate = $request->debut;
+            $tdate = $request->fin;
+            $datetime1 = new \DateTime($fdate);
+            $datetime2 = new \DateTime($tdate);
+            $interval = $datetime1->diff($datetime2);
+
+        
+                 $projet = Projet::create([
+                'nom' => $request->nom,
+                'description' => $request->description,
+                'duree' => $interval->days,
+                'debut' => $request->debut,
+                'fin' => $request->fin,
+                'filiere_id' => $request->filiere,
+                'user_id' => Auth::id(),
+            ]);
+
+            $files = Fichier::where('user_id',Auth::id())->get();
+
+            foreach ($files as $file ) 
+            {
+            $file->projet_id = $projet->id;
+            }
+
             return back()->with('success', 'Creation du projet réussi !');
+
         }
-
-
-   
-
-        $fdate = $request->debut;
-        $tdate = $request->fin;
-        $datetime1 = new \DateTime($fdate);
-        $datetime2 = new \DateTime($tdate);
-        $interval = $datetime1->diff($datetime2);
-
-      
-       $projet = Projet::create([
-            'nom' => $request->nom,
-            'description' => $request->description,
-            'duree' => $interval->days,
-            'debut' => $request->debut,
-            'fin' => $request->fin,
-            'filiere_id' => $request->filiere,
-            'user_id' => Auth::id(),
-        ]);
-
-        $files = Fichier::where('user_id',Auth::id())->get();
-
-        foreach ($files as $file ) 
-        {
-           $file->projet_id = $projet->id;
-        }
-
-        return back()->with('success', 'Creation du projet réussi !');
-
-    }
-
-       
+ 
     }
 
     /**
@@ -208,7 +211,9 @@ class ProjetController extends Controller
      */
     public function show(Projet $projet)
     {
-        //
+        $fichiers = Fichier::all();
+        
+        return view('projet.show',compact(['projet','fichiers']));
     }
 
     /**
@@ -219,7 +224,8 @@ class ProjetController extends Controller
      */
     public function edit(Projet $projet)
     {
-        //
+        $filieres = Filiere::all();
+        return view('projet.edit',compact(['projet','filieres']));
     }
 
     /**
@@ -231,7 +237,163 @@ class ProjetController extends Controller
      */
     public function update(Request $request, Projet $projet)
     {
-        //
+        $fichiers = Fichier::all();
+
+        if(isset($_POST['save']))
+        {
+            $request->validate([
+                'File' => 'required',
+                'File.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf,zip,docx'
+              ]);
+          
+              if($request->hasfile('File')) 
+              {
+      
+                  foreach($request->file('File') as $file)
+                  {
+                    $fileModal = new Fichier();
+
+                    $filenameWithExt = $file->getClientOriginalName();
+                    // Get just filename
+                    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                    // Get just ext
+                    $extension = $file->getClientOriginalExtension();
+                    // Filename to store
+                    $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                    // Upload Image
+                    $path = $file->storeAs('public/files', $fileNameToStore);
+            
+               
+                    $fileModal->nom = $fileNameToStore;
+                    $fileModal->extension = $extension;
+                    $fileModal->user_id = Auth::id();
+                
+                    $fileModal->save();
+             
+                
+                  }
+
+                    
+                        $fdate = $request->debut;
+                        $tdate = $request->fin;
+                        $datetime1 = new \DateTime($fdate);
+                        $datetime2 = new \DateTime($tdate);
+                        $interval = $datetime1->diff($datetime2);
+
+                        
+                    
+                    $projet->update([
+                            'nom' => $request->nom,
+                            'description' => $request->description,
+                            'duree' => $interval->days,
+                            'debut' => $request->debut,
+                            'fin' => $request->fin,
+                            'filiere_id' => $request->filiere,
+                            'user_id' => Auth::id(),
+                        ]);
+
+                        $files = Fichier::where('user_id',Auth::id())->get();
+
+                        foreach ($files as $file ) 
+                        {
+                          $file->projet_id = $projet->id;
+                          $file->save();
+                        }
+
+
+          
+                        return view('projet.show',compact(['projet','fichiers']))->with('success', 'Modification du projet réussie !');
+
+              }
+
+        }
+        else
+        {
+            if($request->hasfile('File')) 
+            {
+
+        
+
+                foreach($request->file('File') as $file)
+                {
+                    $fileModal = new Fichier();
+
+                    $filenameWithExt = $file->getClientOriginalName();
+                    // Get just filename
+                    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                    // Get just ext
+                    $extension = $file->getClientOriginalExtension();
+                    // Filename to store
+                    $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                    // Upload Image
+                    $path = $file->storeAs('public/files', $fileNameToStore);
+
+            
+                    $fileModal->nom = $fileNameToStore;
+                    $fileModal->extension = $extension;
+                    $fileModal->user_id = Auth::id();
+                
+                    $fileModal->save();
+                }
+
+                
+                    $fdate = $request->debut;
+                    $tdate = $request->fin;
+                    $datetime1 = new \DateTime($fdate);
+                    $datetime2 = new \DateTime($tdate);
+                    $interval = $datetime1->diff($datetime2);
+
+                
+                $projet->update([
+                        'nom' => $request->nom,
+                        'description' => $request->description,
+                        'duree' => $interval->days,
+                        'debut' => $request->debut,
+                        'fin' => $request->fin,
+                        'filiere_id' => $request->filiere,
+                        'user_id' => Auth::id(),
+                    ]);
+
+                    $files = Fichier::where('user_id',Auth::id())->get();
+
+                    foreach ($files as $file ) 
+                    {
+                        $file->projet_id = $projet->id;
+                        $file->save();
+                    }
+
+
+        
+                    return view('projet.show',compact(['projet','fichiers']))->with('success', 'Modification du projet réussie !');
+
+            }
+            $fdate = $request->debut;
+            $tdate = $request->fin;
+            $datetime1 = new \DateTime($fdate);
+            $datetime2 = new \DateTime($tdate);
+            $interval = $datetime1->diff($datetime2);
+
+        
+                 $projet->update([
+                'nom' => $request->nom,
+                'description' => $request->description,
+                'duree' => $interval->days,
+                'debut' => $request->debut,
+                'fin' => $request->fin,
+                'filiere_id' => $request->filiere,
+                'user_id' => Auth::id(),
+            ]);
+
+            $files = Fichier::where('user_id',Auth::id())->get();
+
+            foreach ($files as $file ) 
+            {
+            $file->projet_id = $projet->id;
+            }
+
+            
+            return view('projet.show',compact(['projet','fichiers']))->with('success', 'Modification du projet réussie !');
+        }
     }
 
     /**
@@ -242,6 +404,14 @@ class ProjetController extends Controller
      */
     public function destroy(Projet $projet)
     {
-        //
+        $projet->destroy($projet);
     }
+
+    public function download(Fichier $file)
+    {
+        
+        return response()->download(public_path('storage/files/'.$file->nom), $file->nom);
+    }
+
+
 }

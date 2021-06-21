@@ -32,4 +32,4 @@ Route::resource('/projet', 'App\Http\Controllers\ProjetController');
 
 Route::resource('/filiere', 'App\Http\Controllers\FiliereController');
 
-Route::resource('/file', 'App\Http\Controllers\FileController');
+Route::post('/projet/{file}', 'App\Http\Controllers\ProjetController@download')->name('fichier.download');
