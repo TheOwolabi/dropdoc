@@ -8,6 +8,7 @@ use App\Models\Projet;
 use App\Models\Filiere;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProjetController extends Controller
 {
@@ -418,8 +419,10 @@ class ProjetController extends Controller
         return view('upload');
     }
 
-    public function send()
+    public function send(Request $request)
     {
+      
+
         // this will simply read AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY from env vars
 $s3 = new \Aws\S3\S3Client([
     'version'  => '2006-03-01',
@@ -427,7 +430,8 @@ $s3 = new \Aws\S3\S3Client([
 ]);
 $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
        
-                $upload = $s3->upload($bucket, $_FILES['userfile']['name'], fopen($_FILES['userfile']['tmp_name'], 'rb'), 'public-read');
+
+                $upload = $s3->upload($bucket, $request->userfile->getClientOriginalName(), fopen(Storage::path($request->userfile), 'rb'), 'public-read');
         
                 dd($upload->get('ObjectURL'));
                 

@@ -7,7 +7,7 @@
         <h2>Upload a file</h2>
         <form enctype="multipart/form-data" action="{{route('send')}}" method="POST">   
             @csrf
-            <input name="userfile" type="file"><input type="submit" value="Upload">
+            <input name="userfile" id="userfile" type="file"><input type="submit" value="Upload">
         </form>
     </body>
 </html>
