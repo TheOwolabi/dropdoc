@@ -436,9 +436,6 @@ $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!'
                 $upload = $s3->putObject([
                     'Bucket'        => $bucket,
                     'Key'           => $request->userfile->getClientOriginalName(),
-                    'Body'          => new CachingStream(
-                        new Stream(fopen(Storage::path($request->userfile), 'r'))
-                    ),
                     'ACL'           => 'public-read',
                     
                 ]);
