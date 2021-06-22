@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\FileController;
-use App\Models\Fichier;
 use App\Models\Projet;
+use App\Models\Fichier;
 use App\Models\Filiere;
+use GuzzleHttp\Psr7\Stream;
 use Illuminate\Http\Request;
+use GuzzleHttp\Psr7\CachingStream;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\FileController;
 
 class ProjetController extends Controller
 {
@@ -431,7 +433,23 @@ $s3 = new \Aws\S3\S3Client([
 $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
        
 
-                $upload = $s3->upload($bucket, $request->userfile->getClientOriginalName(), fopen(Storage::path($request->userfile), 'rb'), 'public-read');
+                $upload = $s3->putObject([
+                    'Bucket'        => $bucket,
+                    'Key'           => $request->userfile->getClientOriginalName(),
+                    'Body'          => new CachingStream(
+                        new Stream(fopen($request->userfile, 'r'))
+                    ),
+                    'ACL'           => 'public-read',
+                    
+                ]);
+                
+                
+                
+                
+                
+                // $s3->upload($bucket, $request->userfile->getClientOriginalName(),  new CachingStream(
+                //     new Stream(fopen($file, 'r'))
+                // ), 'rb'), 'public-read');
         
                 dd($upload->get('ObjectURL'));
                 
