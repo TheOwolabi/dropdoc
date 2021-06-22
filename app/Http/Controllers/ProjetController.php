@@ -413,5 +413,10 @@ class ProjetController extends Controller
         return response()->download(public_path('storage/files/'.$file->nom), $file->nom);
     }
 
+    public function upload()
+    {
+        return view('upload');
+    }
+
 
 }
