@@ -86,15 +86,15 @@ class ProjetController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        $files = Fichier::where('user_id',Auth::id())->get();
+        $fichiers = Fichier::where('user_id',Auth::id())->get();
         
-        foreach ($files as $file ) 
+        foreach ($fichiers as $fichier ) 
         {
-            $file->projet_id = $projet->id;
-            $file->save();
+            $fichier->projet_id = $projet->id;
+            $fichier->save();
         }
 
-        return redirect()->route('show',compact('projet'));
+        return redirect()->route('projet.show',compact(['projet','fichiers']));
     }
 
     public function saveFileInfos($file)
@@ -173,15 +173,15 @@ class ProjetController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        $files = Fichier::where('user_id',Auth::id())->get();
+        $fichiers = Fichier::where('user_id',Auth::id())->get();
 
-        foreach ($files as $file ) 
+        foreach ($fichiers as $fichier ) 
         {
-            $file->projet_id = $projet->id;
-            $file->save();
+            $fichier->projet_id = $projet->id;
+            $fichier->save();
         }
 
-        return redirect()->route('show',compact('projet'));
+        return redirect()->route('projet.show',compact(['projet','fichiers']));
     }
 
     /**
