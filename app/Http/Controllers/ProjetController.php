@@ -65,7 +65,8 @@ class ProjetController extends Controller
      */
     public function store(Request $request)
     {
-           
+        $fichiers = Fichier::all();
+
         $this->FileUpload($request);
 
         $fdate = $request->debut;
@@ -92,7 +93,7 @@ class ProjetController extends Controller
          $file->projet_id = $projet->id;
         }
 
-        return view('projet.show',compact('projet'))->with('success', 'Creation du projet réussi !');
+        return view('projet.show',compact(['projet','fichiers']))->with('success', 'Creation du projet réussi !');
  
     }
 
