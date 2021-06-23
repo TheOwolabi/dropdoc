@@ -39,6 +39,50 @@ class ProjetController extends Controller
         return view('projet.create',compact('filieres'));
     }
 
+    public function FileUpload($request)
+    {
+        if($request->hasfile('File')) 
+        {
+
+            foreach($request->file('File') as $file)
+            {
+              $this->sendToAWS($file);
+              $this->saveFileInfos($file);
+            }
+
+              
+                  $fdate = $request->debut;
+                  $tdate = $request->fin;
+                  $datetime1 = new \DateTime($fdate);
+                  $datetime2 = new \DateTime($tdate);
+                  $interval = $datetime1->diff($datetime2);
+
+              
+              $projet = Projet::create([
+                      'nom' => $request->nom,
+                      'description' => $request->description,
+                      'duree' => $interval->days,
+                      'debut' => $request->debut,
+                      'fin' => $request->fin,
+                      'filiere_id' => $request->filiere,
+                      'user_id' => Auth::id(),
+                  ]);
+
+                  $files = Fichier::where('user_id',Auth::id())->get();
+
+                  foreach ($files as $file ) 
+                  {
+                    $file->projet_id = $projet->id;
+                    $file->save();
+                  }
+
+
+    
+            return back()->with('success', 'Creation du projet réussi !');
+        }
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -54,93 +98,14 @@ class ProjetController extends Controller
             $request->validate([
                 'File' => 'required',
                 'File.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf,zip,docx'
-              ]);
+            ]);
           
-              if($request->hasfile('File')) 
-              {
-      
-                  foreach($request->file('File') as $file)
-                  {
-                    $this->sendToAWS($file);
-                    $this->saveFileInfos($file);
-                  }
-
-                    
-                        $fdate = $request->debut;
-                        $tdate = $request->fin;
-                        $datetime1 = new \DateTime($fdate);
-                        $datetime2 = new \DateTime($tdate);
-                        $interval = $datetime1->diff($datetime2);
-
-                    
-                    $projet = Projet::create([
-                            'nom' => $request->nom,
-                            'description' => $request->description,
-                            'duree' => $interval->days,
-                            'debut' => $request->debut,
-                            'fin' => $request->fin,
-                            'filiere_id' => $request->filiere,
-                            'user_id' => Auth::id(),
-                        ]);
-
-                        $files = Fichier::where('user_id',Auth::id())->get();
-
-                        foreach ($files as $file ) 
-                        {
-                          $file->projet_id = $projet->id;
-                          $file->save();
-                        }
-
-
-          
-                  return back()->with('success', 'Creation du projet réussi !');
-              }
-
+            $this->FileUpload($request);
         }
         else
         {
-            if($request->hasfile('File')) 
-            {
-             
-                
-
-                foreach($request->file('File') as $file)
-                {
-                    $this->sendToAWS($file);
-                    $this->saveFileInfos($file);  
-                }
-
-                
-                    $fdate = $request->debut;
-                    $tdate = $request->fin;
-                    $datetime1 = new \DateTime($fdate);
-                    $datetime2 = new \DateTime($tdate);
-                    $interval = $datetime1->diff($datetime2);
-
-                
-                $projet = Projet::create([
-                        'nom' => $request->nom,
-                        'description' => $request->description,
-                        'duree' => $interval->days,
-                        'debut' => $request->debut,
-                        'fin' => $request->fin,
-                        'filiere_id' => $request->filiere,
-                        'user_id' => Auth::id(),
-                    ]);
-
-                    $files = Fichier::where('user_id',Auth::id())->get();
-
-                    foreach ($files as $file ) 
-                    {
-                        $file->projet_id = $projet->id;
-                        $file->save();
-                    }
-
-
-        
-                return back()->with('success', 'Creation du projet réussi !');
-            }
-
+           
+            $this->FileUpload($request);
 
     
 
@@ -239,127 +204,12 @@ class ProjetController extends Controller
                 'File.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf,zip,docx'
               ]);
           
-              if($request->hasfile('File')) 
-              {
-      
-                  foreach($request->file('File') as $file)
-                  {
-                    $fileModal = new Fichier();
-
-                    $filenameWithExt = $file->getClientOriginalName();
-                    // Get just filename
-                    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                    // Get just ext
-                    $extension = $file->getClientOriginalExtension();
-                    // Filename to store
-                    // $fileNameToStore= $filename.'_'.time().'.'.$extension;
-                    // Upload Image
-                    $path = $file->storeAs('public/files', $filename);
-            
-               
-                    $fileModal->nom = $filename;
-                    $fileModal->extension = $extension;
-                    $fileModal->user_id = Auth::id();
-                
-                    $fileModal->save();
-             
-                
-                  }
-
-                    
-                        $fdate = $request->debut;
-                        $tdate = $request->fin;
-                        $datetime1 = new \DateTime($fdate);
-                        $datetime2 = new \DateTime($tdate);
-                        $interval = $datetime1->diff($datetime2);
-
-                        
-                    
-                    $projet->update([
-                            'nom' => $request->nom,
-                            'description' => $request->description,
-                            'duree' => $interval->days,
-                            'debut' => $request->debut,
-                            'fin' => $request->fin,
-                            'filiere_id' => $request->filiere,
-                            'user_id' => Auth::id(),
-                        ]);
-
-                        $files = Fichier::where('user_id',Auth::id())->get();
-
-                        foreach ($files as $file ) 
-                        {
-                          $file->projet_id = $projet->id;
-                          $file->save();
-                        }
-
-
-          
-                        return view('projet.show',compact(['projet','fichiers']))->with('success', 'Modification du projet réussie !');
-
-              }
+             $this->FileUpload($request);
 
         }
         else
         {
-            if($request->hasfile('File')) 
-            {
-
-        
-
-                foreach($request->file('File') as $file)
-                {
-                    $fileModal = new Fichier();
-
-                    $filenameWithExt = $file->getClientOriginalName();
-                    // Get just filename
-                    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                    // Get just ext
-                    $extension = $file->getClientOriginalExtension();
-                    // Filename to store
-                    // $fileNameToStore= $filename.'_'.time().'.'.$extension;
-                    // Upload Image
-                    $path = $file->storeAs('public/files', $filename);
-
-            
-                    $fileModal->nom = $filename;
-                    $fileModal->extension = $extension;
-                    $fileModal->user_id = Auth::id();
-                
-                    $fileModal->save();
-                }
-
-                
-                    $fdate = $request->debut;
-                    $tdate = $request->fin;
-                    $datetime1 = new \DateTime($fdate);
-                    $datetime2 = new \DateTime($tdate);
-                    $interval = $datetime1->diff($datetime2);
-
-                
-                $projet->update([
-                        'nom' => $request->nom,
-                        'description' => $request->description,
-                        'duree' => $interval->days,
-                        'debut' => $request->debut,
-                        'fin' => $request->fin,
-                        'filiere_id' => $request->filiere,
-                        'user_id' => Auth::id(),
-                    ]);
-
-                    $files = Fichier::where('user_id',Auth::id())->get();
-
-                    foreach ($files as $file ) 
-                    {
-                        $file->projet_id = $projet->id;
-                        $file->save();
-                    }
-
-
-        
-                    return view('projet.show',compact(['projet','fichiers']))->with('success', 'Modification du projet réussie !');
-
-            }
+            $this->FileUpload($request);
             $fdate = $request->debut;
             $tdate = $request->fin;
             $datetime1 = new \DateTime($fdate);
