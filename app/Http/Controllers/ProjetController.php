@@ -14,6 +14,8 @@ use App\Http\Controllers\FileController;
 
 class ProjetController extends Controller
 {
+   
+
     /**
      * Display a listing of the resource.
      *
@@ -47,6 +49,8 @@ class ProjetController extends Controller
      */
     public function store(Request $request)
     {
+
+
         if(isset($_POST['save']))
         {
             $request->validate([
@@ -117,11 +121,13 @@ class ProjetController extends Controller
         {
             if($request->hasfile('File')) 
             {
-
-        
+             
+                
 
                 foreach($request->file('File') as $file)
                 {
+                    $this->sendToAWS($file);
+                    
                     $fileModal = new Fichier();
 
                     $filenameWithExt = $file->getClientOriginalName();
@@ -421,36 +427,24 @@ class ProjetController extends Controller
         return view('upload');
     }
 
-    public function send(Request $request)
+    public function sendToAWS($file)
     {
-      
+       // this will simply read AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY from env vars
+        $s3 = new \Aws\S3\S3Client([
+            'version'  => '2006-03-01',
+            'region'   => 'us-west-1',
+        ]);
 
-        // this will simply read AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY from env vars
-$s3 = new \Aws\S3\S3Client([
-    'version'  => '2006-03-01',
-    'region'   => 'us-west-1',
-]);
-$bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
-       
+        $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
-                $upload = $s3->putObject([
-                    'Bucket'        => $bucket,
-                    'Key'           => $request->userfile->getClientOriginalName(),
-                    'ACL'           => 'public-read',
-                    
-                ]);
-                
-                
-                
-                
-                
-                // $s3->upload($bucket, $request->userfile->getClientOriginalName(),  new CachingStream(
-                //     new Stream(fopen($file, 'r'))
-                // ), 'rb'), 'public-read');
-        
-                dd($upload->get('ObjectURL'));
-                
-        
+        $upload = $s3->putObject([
+            'Bucket'        => $bucket,
+            'Key'           => $file->getClientOriginalName(),
+            'ACL'           => 'public-read',
+            
+        ]);
+            
+        dd($upload->get('ObjectURL'));   
     }
 
 

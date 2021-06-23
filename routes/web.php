@@ -37,4 +37,4 @@ Route::post('/projet/{file}', 'App\Http\Controllers\ProjetController@download')-
 Route::get('/upload', 'App\Http\Controllers\ProjetController@upload')->name('upload');
 
 
-Route::post('/upload', 'App\Http\Controllers\ProjetController@send')->name('send');
+Route::post('/upload', 'App\Http\Controllers\ProjetController@sendToAWS')->name('send');
