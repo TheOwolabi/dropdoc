@@ -88,6 +88,8 @@ class ProjetController extends Controller
 
         $files = Fichier::where('user_id',Auth::id())->get();
 
+        dd($files);
+        
         foreach ($files as $file ) 
         {
          $file->projet_id = $projet->id;
