@@ -86,7 +86,7 @@ class ProjetController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        $fichiers = Fichier::where('user_id',Auth::id())->get();
+        $fichiers = Fichier::where('user_id',Auth::id())->where('projet_id',null)->get();
         
         foreach ($fichiers as $fichier ) 
         {
@@ -173,7 +173,7 @@ class ProjetController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        $fichiers = Fichier::where('user_id',Auth::id())->get();
+        $fichiers = Fichier::where('user_id',Auth::id())->where('projet_id',null)->get();
 
         foreach ($fichiers as $fichier ) 
         {
