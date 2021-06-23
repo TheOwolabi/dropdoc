@@ -109,7 +109,7 @@
                 <div class="container mt-5">
                     <h3 class="text-center mb-5">Rajoute des fichiers </h3>
                     {{-- <form action="{{route('projet.store')}}" method="post" enctype="multipart/form-data"> --}}
-                        @csrf
+                        {{-- @csrf --}}
                         @if ($message = Session::get('success'))
                             <div class="alert alert-success">
                                 <strong>{{ $message }}</strong>
@@ -137,9 +137,9 @@
                             <label class="custom-file-label" for="images">Choose image</label>
                         </div>
             
-                        <button type="submit" name="save" class="btn btn-primary btn-block mt-4">
+                        {{-- <button type="submit" name="save" class="btn btn-primary btn-block mt-4">
                             Upload les fichiers
-                        </button>
+                        </button> --}}
                     {{-- </form> --}}
                 </div>
             

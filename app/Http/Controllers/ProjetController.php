@@ -43,42 +43,16 @@ class ProjetController extends Controller
     {
         if($request->hasfile('File')) 
         {
+            $request->validate([
+                'File' => 'required',
+                'File.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf,zip,docx'
+            ]);
 
             foreach($request->file('File') as $file)
             {
               $this->sendToAWS($file);
               $this->saveFileInfos($file);
             }
-
-              
-                  $fdate = $request->debut;
-                  $tdate = $request->fin;
-                  $datetime1 = new \DateTime($fdate);
-                  $datetime2 = new \DateTime($tdate);
-                  $interval = $datetime1->diff($datetime2);
-
-              
-              $projet = Projet::create([
-                      'nom' => $request->nom,
-                      'description' => $request->description,
-                      'duree' => $interval->days,
-                      'debut' => $request->debut,
-                      'fin' => $request->fin,
-                      'filiere_id' => $request->filiere,
-                      'user_id' => Auth::id(),
-                  ]);
-
-                  $files = Fichier::where('user_id',Auth::id())->get();
-
-                  foreach ($files as $file ) 
-                  {
-                    $file->projet_id = $projet->id;
-                    $file->save();
-                  }
-
-
-    
-            return view('projet.show',compact($projet))->with('success', 'Creation du projet réussi !');
         }
 
     }
@@ -118,7 +92,7 @@ class ProjetController extends Controller
          $file->projet_id = $projet->id;
         }
 
-        return view('projet.show',compact($projet))->with('success', 'Creation du projet réussi !');
+        return view('projet.show',compact('projet'))->with('success', 'Creation du projet réussi !');
  
     }
 
@@ -180,46 +154,34 @@ class ProjetController extends Controller
     {
         $fichiers = Fichier::all();
 
-        if(isset($_POST['save']))
-        {
-            $request->validate([
-                'File' => 'required',
-                'File.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf,zip,docx'
-              ]);
-          
-             $this->FileUpload($request);
+        $this->FileUpload($request);
+        $fdate = $request->debut;
+        $tdate = $request->fin;
+        $datetime1 = new \DateTime($fdate);
+        $datetime2 = new \DateTime($tdate);
+        $interval = $datetime1->diff($datetime2);
 
-        }
-        else
+    
+        $projet->update([
+            'nom' => $request->nom,
+            'description' => $request->description,
+            'duree' => $interval->days,
+            'debut' => $request->debut,
+            'fin' => $request->fin,
+            'filiere_id' => $request->filiere,
+            'user_id' => Auth::id(),
+        ]);
+
+        $files = Fichier::where('user_id',Auth::id())->get();
+
+        foreach ($files as $file ) 
         {
-            $this->FileUpload($request);
-            $fdate = $request->debut;
-            $tdate = $request->fin;
-            $datetime1 = new \DateTime($fdate);
-            $datetime2 = new \DateTime($tdate);
-            $interval = $datetime1->diff($datetime2);
+        $file->projet_id = $projet->id;
+        }
 
         
-                 $projet->update([
-                'nom' => $request->nom,
-                'description' => $request->description,
-                'duree' => $interval->days,
-                'debut' => $request->debut,
-                'fin' => $request->fin,
-                'filiere_id' => $request->filiere,
-                'user_id' => Auth::id(),
-            ]);
-
-            $files = Fichier::where('user_id',Auth::id())->get();
-
-            foreach ($files as $file ) 
-            {
-            $file->projet_id = $projet->id;
-            }
-
-            
-            return view('projet.show',compact(['projet','fichiers']))->with('success', 'Modification du projet réussie !');
-        }
+        return view('projet.show',compact(['projet','fichiers']))->with('success', 'Modification du projet réussie !');
+    
     }
 
     /**
