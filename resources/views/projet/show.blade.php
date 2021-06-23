@@ -42,7 +42,7 @@
                                     <tr>
                                         <td>{{$fichier->nom ?? '-'}}</td>
                                         <td> 
-                                            <a href="{{"https://dropstore.s3.us-west-1.amazonaws.com/".$fichier->nom.$fichier->extension}}">Telecharger</a>
+                                            <a href="{{"https://dropstore.s3.us-west-1.amazonaws.com/".$fichier->nom.".".$fichier->extension}}">Telecharger</a>
                                             {{-- <form action="{{route('fichier.download',$fichier)}}" method="post">
                                                 @csrf
                                                 <button class="btn btn-success"  type="submit">Télécharger</button>

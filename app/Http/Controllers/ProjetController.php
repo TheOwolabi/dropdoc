@@ -78,7 +78,7 @@ class ProjetController extends Controller
 
 
     
-            return back()->with('success', 'Creation du projet réussi !');
+            return view('projet.show',compact($projet))->with('success', 'Creation du projet réussi !');
         }
 
     }
@@ -91,51 +91,34 @@ class ProjetController extends Controller
      */
     public function store(Request $request)
     {
-
-
-        if(isset($_POST['save']))
-        {
-            $request->validate([
-                'File' => 'required',
-                'File.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf,zip,docx'
-            ]);
-          
-            $this->FileUpload($request);
-        }
-        else
-        {
            
-            $this->FileUpload($request);
+        $this->FileUpload($request);
+
+        $fdate = $request->debut;
+        $tdate = $request->fin;
+        $datetime1 = new \DateTime($fdate);
+        $datetime2 = new \DateTime($tdate);
+        $interval = $datetime1->diff($datetime2);
 
     
+        $projet = Projet::create([
+            'nom' => $request->nom,
+            'description' => $request->description,
+            'duree' => $interval->days,
+            'debut' => $request->debut,
+            'fin' => $request->fin,
+            'filiere_id' => $request->filiere,
+            'user_id' => Auth::id(),
+        ]);
 
-            $fdate = $request->debut;
-            $tdate = $request->fin;
-            $datetime1 = new \DateTime($fdate);
-            $datetime2 = new \DateTime($tdate);
-            $interval = $datetime1->diff($datetime2);
+        $files = Fichier::where('user_id',Auth::id())->get();
 
-        
-                 $projet = Projet::create([
-                'nom' => $request->nom,
-                'description' => $request->description,
-                'duree' => $interval->days,
-                'debut' => $request->debut,
-                'fin' => $request->fin,
-                'filiere_id' => $request->filiere,
-                'user_id' => Auth::id(),
-            ]);
-
-            $files = Fichier::where('user_id',Auth::id())->get();
-
-            foreach ($files as $file ) 
-            {
-            $file->projet_id = $projet->id;
-            }
-
-            return back()->with('success', 'Creation du projet réussi !');
-
+        foreach ($files as $file ) 
+        {
+         $file->projet_id = $projet->id;
         }
+
+        return view('projet.show',compact($projet))->with('success', 'Creation du projet réussi !');
  
     }
 
