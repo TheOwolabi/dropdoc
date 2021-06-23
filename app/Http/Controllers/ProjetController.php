@@ -94,8 +94,7 @@ class ProjetController extends Controller
             $file->save();
         }
 
-        return view('projet.show',compact(['projet','fichiers']))->with('success', 'Creation du projet réussi !');
- 
+        return redirect()->route('show',compact('projet'));
     }
 
     public function saveFileInfos($file)
@@ -182,9 +181,7 @@ class ProjetController extends Controller
             $file->save();
         }
 
-        
-        return view('projet.show',compact(['projet','fichiers']))->with('success', 'Modification du projet réussie !');
-    
+        return redirect()->route('show',compact('projet'));
     }
 
     /**
@@ -195,7 +192,9 @@ class ProjetController extends Controller
      */
     public function destroy(Projet $projet)
     {
-        $projet->destroy($projet);
+        $projet->delete($projet);
+
+        return redirect()->route('index');
     }
 
     public function download(Fichier $file)
