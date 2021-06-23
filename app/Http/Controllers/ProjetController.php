@@ -39,8 +39,6 @@ class ProjetController extends Controller
         return view('projet.create',compact('filieres'));
     }
 
-    
-
     /**
      * Store a newly created resource in storage.
      *
@@ -63,26 +61,8 @@ class ProjetController extends Controller
       
                   foreach($request->file('File') as $file)
                   {
-                    $fileModal = new Fichier();
-
-                    $filenameWithExt = $file->getClientOriginalName();
-                    // Get just filename
-                    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                    // Get just ext
-                    $extension = $file->getClientOriginalExtension();
-                    // Filename to store
-                    $fileNameToStore= $filename.'_'.time().'.'.$extension;
-                    // Upload Image
-                    $path = $file->storeAs('public/files', $fileNameToStore);
-            
-               
-                    $fileModal->nom = $fileNameToStore;
-                    $fileModal->extension = $extension;
-                    $fileModal->user_id = Auth::id();
-                
-                    $fileModal->save();
-             
-                
+                    $this->sendToAWS($file);
+                    $this->saveFileInfos($file);
                   }
 
                     
@@ -127,25 +107,7 @@ class ProjetController extends Controller
                 foreach($request->file('File') as $file)
                 {
                     $this->sendToAWS($file);
-                    
-                    $fileModal = new Fichier();
-
-                    $filenameWithExt = $file->getClientOriginalName();
-                    // Get just filename
-                    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                    // Get just ext
-                    $extension = $file->getClientOriginalExtension();
-                    // Filename to store
-                    $fileNameToStore= $filename.'_'.time().'.'.$extension;
-                    // Upload Image
-                    $path = $file->storeAs('public/files', $fileNameToStore);
-
-            
-                    $fileModal->nom = $fileNameToStore;
-                    $fileModal->extension = $extension;
-                    $fileModal->user_id = Auth::id();
-                
-                    $fileModal->save();
+                    $this->saveFileInfos($file);  
                 }
 
                 
@@ -212,6 +174,28 @@ class ProjetController extends Controller
  
     }
 
+    public function saveFileInfos($file)
+    {
+        $fileModal = new Fichier();
+
+        $filenameWithExt = $file->getClientOriginalName();
+        // Get just filename
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        // Get just ext
+        $extension = $file->getClientOriginalExtension();
+        // Filename to store
+        // $fileNameToStore= $filename.'_'.time().'.'.$extension;
+        // Upload Image
+        // $path = $file->storeAs('public/files', $filename);
+
+
+        $fileModal->nom = $filename;
+        $fileModal->extension = $extension;
+        $fileModal->user_id = Auth::id();
+    
+        $fileModal->save();
+    }
+
     /**
      * Display the specified resource.
      *
@@ -268,12 +252,12 @@ class ProjetController extends Controller
                     // Get just ext
                     $extension = $file->getClientOriginalExtension();
                     // Filename to store
-                    $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                    // $fileNameToStore= $filename.'_'.time().'.'.$extension;
                     // Upload Image
-                    $path = $file->storeAs('public/files', $fileNameToStore);
+                    $path = $file->storeAs('public/files', $filename);
             
                
-                    $fileModal->nom = $fileNameToStore;
+                    $fileModal->nom = $filename;
                     $fileModal->extension = $extension;
                     $fileModal->user_id = Auth::id();
                 
@@ -333,12 +317,12 @@ class ProjetController extends Controller
                     // Get just ext
                     $extension = $file->getClientOriginalExtension();
                     // Filename to store
-                    $fileNameToStore= $filename.'_'.time().'.'.$extension;
+                    // $fileNameToStore= $filename.'_'.time().'.'.$extension;
                     // Upload Image
-                    $path = $file->storeAs('public/files', $fileNameToStore);
+                    $path = $file->storeAs('public/files', $filename);
 
             
-                    $fileModal->nom = $fileNameToStore;
+                    $fileModal->nom = $filename;
                     $fileModal->extension = $extension;
                     $fileModal->user_id = Auth::id();
                 
@@ -443,8 +427,7 @@ class ProjetController extends Controller
             'ACL'           => 'public-read',
             
         ]);
-            
-        dd($upload->get('ObjectURL'));   
+              
     }
 
 
