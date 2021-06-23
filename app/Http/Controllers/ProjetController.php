@@ -92,7 +92,8 @@ class ProjetController extends Controller
         
         foreach ($files as $file ) 
         {
-         $file->projet_id = $projet->id;
+            $file->projet_id = $projet->id;
+            $file->save();
         }
 
         return view('projet.show',compact(['projet','fichiers']))->with('success', 'Creation du projet réussi !');
@@ -179,7 +180,8 @@ class ProjetController extends Controller
 
         foreach ($files as $file ) 
         {
-        $file->projet_id = $projet->id;
+            $file->projet_id = $projet->id;
+            $file->save();
         }
 
         
