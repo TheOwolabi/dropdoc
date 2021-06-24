@@ -245,6 +245,8 @@ class ProjetController extends Controller
             'ACL'           => 'public-read',
             
         ]);
+
+        dd($upload);
               
     }
 
