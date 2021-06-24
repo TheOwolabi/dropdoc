@@ -49,7 +49,7 @@
                                             <a href="{{"https://dropstore.s3.us-west-1.amazonaws.com/".$fichier->nom.".".$fichier->extension}}">Telecharger</a>
                                             {{-- <a href="{{route('fichier.delete',$fichier)}}">Supprimer</a> --}}
                                             
-                                            @can('delete',$file)
+                                            @can('delete',$fichier)
                                                 <form action="{{route('fichier.delete',$fichier)}}" method="post">
                                                     @csrf
                                                     <button class="btn btn-danger"  type="submit">Supprimer</button>
