@@ -226,7 +226,7 @@ class ProjetController extends Controller
         $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
 
-        Storage::disk('s3')->delete($file->path); 
+        Storage::disk('s3')->delete($file); 
 
         $file->delete();        
         return back();
