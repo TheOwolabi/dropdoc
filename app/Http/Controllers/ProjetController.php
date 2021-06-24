@@ -213,6 +213,7 @@ class ProjetController extends Controller
 
         $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
+
         $s3->deleteObject(array(
             'Bucket' => $bucket,
             'Key'    => $file->nom
