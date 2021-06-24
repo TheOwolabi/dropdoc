@@ -218,6 +218,7 @@ class ProjetController extends Controller
 
         Storage::disk('s3')->delete("https://dropstore.s3.us-west-1.amazonaws.com/".$file->nom); 
             
+        dd("https://dropstore.s3.us-west-1.amazonaws.com/".$file->nom);
 
         $file->delete();        
         return back();
