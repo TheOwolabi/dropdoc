@@ -11,6 +11,8 @@ use GuzzleHttp\Psr7\CachingStream;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\FileController;
+use Aws\Credentials\Credentials;
+use Aws\S3\S3Client;
 
 class ProjetController extends Controller
 {
@@ -214,7 +216,7 @@ class ProjetController extends Controller
         $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
 
-        Storage::disk('s3')->delete("https://dropstore.s3.us-west-1.amazonaws.com/".$file->nom); 
+        Storage::disk($s3)->delete("https://dropstore.s3.us-west-1.amazonaws.com/".$file->nom); 
             
 
         $file->delete();        
