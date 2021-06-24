@@ -204,10 +204,21 @@ class ProjetController extends Controller
         return redirect()->route('projet.index');
     }
 
-    public function download(Fichier $file)
+    public function deleteFile(Fichier $file)
     {
+        $s3 = new \Aws\S3\S3Client([
+            'version'  => '2006-03-01',
+            'region'   => 'us-west-1',
+        ]);
+
+        $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
+
+        $s3->deleteObject(array(
+            'Bucket' => $bucket,
+            'Key'    => $file->nom
+        ));
         
-        return response()->download(public_path('storage/files/'.$file->nom), $file->nom);
+        return back();
     }
 
     public function upload()

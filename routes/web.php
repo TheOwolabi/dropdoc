@@ -32,7 +32,7 @@ Route::resource('/projet', 'App\Http\Controllers\ProjetController');
 
 Route::resource('/filiere', 'App\Http\Controllers\FiliereController');
 
-Route::post('/projet/{file}', 'App\Http\Controllers\ProjetController@download')->name('fichier.download');
+Route::post('/projet/{file}', 'App\Http\Controllers\ProjetController@deleteFile')->name('fichier.delete');
 
 Route::get('/upload', 'App\Http\Controllers\ProjetController@upload')->name('upload');
 
