@@ -216,9 +216,14 @@ class ProjetController extends Controller
 
         $s3->deleteObject(array(
             'Bucket' => $bucket,
-            'Key'    => $file->nom
+            'Key'    => $file->nom,
+            'ACL'           => 'public-read',
         ));
         
+        dd("hello");
+
+        $file->delete();
+                
         return back();
     }
 
