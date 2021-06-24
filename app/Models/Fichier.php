@@ -14,5 +14,6 @@ class Fichier extends Model
         'extension',
         'description',
         'projet_id',
+        'path',
     ];
 }
