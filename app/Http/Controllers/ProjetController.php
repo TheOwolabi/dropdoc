@@ -133,7 +133,7 @@ class ProjetController extends Controller
         $fileModal->nom = $filename;
         $fileModal->extension = $extension;
         $fileModal->user_id = Auth::id();
-        $file->path = $s3->getObjectUrl($bucket, $file->getClientOriginalName());
+        $fileModal->path = $s3->getObjectUrl($bucket, $file->getClientOriginalName());
     
         $fileModal->save();
     }
