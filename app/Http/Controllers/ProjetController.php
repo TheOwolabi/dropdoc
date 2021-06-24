@@ -246,7 +246,7 @@ class ProjetController extends Controller
             
         ]);
 
-        dd($upload);
+        dd(Storage::url($file->getClientOriginalName()));
               
     }
 
