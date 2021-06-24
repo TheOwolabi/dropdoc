@@ -40,17 +40,19 @@
                                 {{ __('Consulter') }}
                             </a>
                             
-                                
-                            <a href="{{route('projet.edit',$projet->id)}}" class="icon edit"> <i class="flaticon-pencil"></i> </a>
-                        
-                            <a href="" class="icon delete" onclick="event.preventDefault(); document.getElementById('delete-{{$projet->id}}').submit();"> <i class="flaticon-delete"></i> </a>
+                            @can('update', $projet)
+                                <a href="{{route('projet.edit',$projet->id)}}" class="icon edit"> <i class="flaticon-pencil"></i> </a>
+                            @endcan
+
+                            @can('update', $projet)
+                                <a href="" class="icon delete" onclick="event.preventDefault(); document.getElementById('delete-{{$projet->id}}').submit();"> <i class="flaticon-delete"></i> </a>
                     
-                            <form id="delete-{{$projet->id}}" action="{{route('projet.destroy',$projet)}}" style="display:none;" method="post">
-                            @method('DELETE')
-                            @csrf
+                                <form id="delete-{{$projet->id}}" action="{{route('projet.destroy',$projet)}}" style="display:none;" method="post">
+                                @method('DELETE')
+                                @csrf
                             </form>
-                               
-                             </div>
+                            @endcan  
+                        </div>
                         
                     </div>
                  </div>

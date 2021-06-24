@@ -14,6 +14,13 @@ use App\Http\Controllers\FileController;
 
 class ProjetController extends Controller
 {
+
+    public function __construct()
+    {
+       
+        $this->middleware(['auth']);
+    }
+
    
 
     /**
@@ -194,7 +201,7 @@ class ProjetController extends Controller
     {
         $projet->delete($projet);
 
-        return redirect()->route('index');
+        return redirect()->route('projet.index');
     }
 
     public function download(Fichier $file)

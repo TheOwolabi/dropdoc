@@ -8,14 +8,18 @@
                      <div class="row ">
                          <div class="col-md-12 d-flex justify-content-center">
                            Titre : {{$projet->nom}}
+                           @can('update', $projet)
                             <a href="{{route('projet.edit',$projet->id)}}" class="icon edit"> <i class="flaticon-pencil"></i> </a>
-                                
+                           @endcan
+
+                           @can('delete', $projet)
                             <a href="" class="icon delete" onclick="event.preventDefault(); document.getElementById('delete-{{$projet->id}}').submit();"> <i class="flaticon-delete"></i> </a>
                     
                             <form id="delete-{{$projet->id}}" action="{{route('projet.destroy',$projet)}}" style="display:none;" method="post">
                             @method('DELETE')
                             @csrf
                             </form> 
+                            @endcan
                          </div>
                          <div class="col-md-4">
                             Filiere : <a href=""> {{$projet->filiere->nom}} </a> 
