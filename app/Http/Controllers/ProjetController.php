@@ -108,6 +108,15 @@ class ProjetController extends Controller
 
     public function saveFileInfos($file)
     {
+
+        $s3 = new \Aws\S3\S3Client([
+            'version'  => '2006-03-01',
+            'region'   => 'us-west-1',
+        ]);
+
+        $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
+
+
         $fileModal = new Fichier();
 
         $filenameWithExt = $file->getClientOriginalName();
@@ -124,6 +133,7 @@ class ProjetController extends Controller
         $fileModal->nom = $filename;
         $fileModal->extension = $extension;
         $fileModal->user_id = Auth::id();
+        $file->path = $s3->getObjectUrl($bucket, $file->getClientOriginalName());
     
         $fileModal->save();
     }
@@ -216,9 +226,7 @@ class ProjetController extends Controller
         $bucket = getenv('S3_BUCKET')?: die('No "S3_BUCKET" config var in found in env!');
 
 
-        Storage::disk('s3')->delete("https://dropstore.s3.us-west-1.amazonaws.com/".$file->nom); 
-            
-        dd("https://dropstore.s3.us-west-1.amazonaws.com/".$file->nom);
+        Storage::disk('s3')->delete($file->path); 
 
         $file->delete();        
         return back();
