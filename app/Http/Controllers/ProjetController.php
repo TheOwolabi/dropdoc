@@ -246,7 +246,8 @@ class ProjetController extends Controller
             
         ]);
 
-        dd(Storage::url($file->getClientOriginalName()));
+       dd($s3->getObjectUrl($bucket, $file->getClientOriginalName()));
+        // dd(Storage::disk('s3')->url($file->getClientOriginalName()));
               
     }
 
