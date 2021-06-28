@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('upload');
-});
+
 Route::get('/profile', function () {
     return view('profile');
 });
@@ -41,3 +39,6 @@ Route::get('/upload', 'App\Http\Controllers\ProjetController@upload')->name('upl
 
 
 Route::post('/upload', 'App\Http\Controllers\ProjetController@sendToAWS')->name('send');
+
+Route::get('/acceuil', 'App\Http\Controllers\RootController@index')->name('acceuil');
+
