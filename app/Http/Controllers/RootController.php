@@ -15,7 +15,7 @@ class RootController extends Controller
     public function index()
     {
         $projets = Projet::all();
-        return view('upload',compact('projets'));
+        return view('welcome',compact('projets'));
     }
 
     /**

@@ -40,5 +40,5 @@ Route::get('/upload', 'App\Http\Controllers\ProjetController@upload')->name('upl
 
 Route::post('/upload', 'App\Http\Controllers\ProjetController@sendToAWS')->name('send');
 
-Route::get('/acceuil', 'App\Http\Controllers\RootController@index')->name('acceuil');
+Route::resource('/', 'App\Http\Controllers\RootController');
 
