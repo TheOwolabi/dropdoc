@@ -34,22 +34,12 @@
                     <form class="d-flex">
                     @if (Route::has('login'))
                          @auth
-                      <button class="btn btn-outline-dark" type="submit">
-                       <a class="colore" href="/profile">  <i class="bi bi-person-circle me-1"> </i>
-                            profile
-                            </a>  
-                        </button>
+                         <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/login"> <i class="bi bi-person-circle me-1"> profile </i> </a></div>
                         @else
-                        <button class="btn btn-outline-dark" type="submit">
-                            <a class="colore" href="/login">  <i class="bi bi-person-circle me-1"> Log in </i> 
-                            </a>
-                       </button>
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/login"> <i class="bi bi-person-circle me-1"> Login </i> </a></div>
+
                         @if (Route::has('register'))
-                        <button class="btn btn-outline-dark" type="submit">
-                       <a class="colore" href="/register">  <i class="bi bi-person-circle me-1"> Register </i>
-                      
-                       </a>
-                       </button>
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/register">  <i class="bi bi-person-circle me-1"> Register </i> </a></div>
                         @endif
                     @endauth
                 
