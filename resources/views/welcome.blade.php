@@ -34,7 +34,7 @@
                     <form class="d-flex">
                     @if (Route::has('login'))
                          @auth
-                         <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/login"> <i class="bi bi-person-circle me-1"> profile </i> </a></div>
+                         <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/profile"> <i class="bi bi-person-circle me-1"> profile </i> </a></div>
                         @else
                         <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/login"> <i class="bi bi-person-circle me-1"> Login </i> </a></div>
 
@@ -71,7 +71,7 @@
 			            
 			        </form>
 	             </div>
-                 
+{{--                  
                 <div class="social-container">
 	                <!-- Replace with your Github Button -->
 	                <div class="github-btn mb-2">
@@ -85,7 +85,7 @@
                     <!-- Replace with your Facebook Button -->
                     <div class="fb-like" data-href="https://themes.3rdwavemedia.com/" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>         
                  </div><!--//social-container-->
-                 
+                  --}}
                 
             </div><!--//container-->
         </header><!--//header-->
@@ -103,9 +103,9 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder"> MASK DETECTOR</h5>
+                                    <h5 class="fw-bolder"><a href="{{route('projet.show',$projet)}}"> {{$projet->nom}}</a> </h5>
                                     <!-- Product price-->
-                                    Author : Ulysse
+                                    Author : <a href=""> {{$projet->user->firstname}}</a>
                                 </div>
                             </div>
                             <!-- Product actions-->

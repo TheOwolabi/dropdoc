@@ -36,10 +36,11 @@
                     </h1>
                 </div><!--//branding-->
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/">Acceuil</a></li>
                     <li class="breadcrumb-item active">profile</li>
                 </ol>
-                <div class="top-search-box">
+               
+                <div class="top-search-box"> 
 	                 <form class="form-inline search-form justify-content-center" action="" method="get">
 	            
 			            <input type="text" placeholder="Search..." name="search" class="form-control search-input">
@@ -63,32 +64,45 @@
                                 <div class="jumbotron">
                                     <h1> Plateform de partage de connaissance <i class="fas fa-heart"></i> </h1>
                                     <p> Cette page contient tous vos projets chargés sur la plateforme. Tout en bas ce trouve les projets d'autres élèves</p>
-                                    <a class="scrollto btn btn-blue btn-cta" href="#theme-start"> Ajoutez un projet</a>
+                                    <a class="btn btn-blue btn-cta" href="{{route('projet.create')}}"> Ajoutez un projet</a>
                                 </div><!--//jumbotron-->
                                 <h2 id="theme-start" class="section-title"> Vos Projets </h2>
                                 <div class="section-block">
                                     <div class="row">
-	                                    <div class="col-md-4 col-12 mb-3">
-                                            <div class="theme-card">
-                                                <a href="https://themes.3rdwavemedia.com/bootstrap-templates/resume/instance-bootstrap-portfolio-theme-for-developers/" target="_blank"><img class="img-fluid" src="../images/demo/theme-instance.png" alt="screenshot" /></a>
-                                                <div class="card-block">
-                                                    <h4 class="card-title">Instance</h4>
-                                                    <p class="card-text">Portfolio Theme pour le projet X  <a class="mask" href="https://themes.3rdwavemedia.com/bootstrap-templates/resume/instance-bootstrap-portfolio-theme-for-developers/" target="_blank"><i class="icon fa fa-search-plus"></i></a></p>
-                                                    <button type="button" class="btn-trash">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"></path>
-                                                                    </svg>
-                                                    </button>
-                                                    <button type="button" class="btn-pen">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                                                            <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"></path>
-                                                            </svg>
-                                                    </button>
-                                                </div><!--//card-block-->
-                                               
-                                            </div><!--//theme-card-->
-                                        </div>
-                                        <div class="col-md-4 col-12 mb-3">
+                                        @foreach ($projets as $projet)
+
+                                            <div class="col-md-4 col-12 mb-3">
+                                                <div class="theme-card">
+                                                    <a href="https://themes.3rdwavemedia.com/bootstrap-templates/resume/instance-bootstrap-portfolio-theme-for-developers/" target="_blank"><img class="img-fluid" src="../images/demo/theme-instance.png" alt="screenshot" /></a>
+                                                    <div class="card-block">
+                                                        <h4 class="card-title"><a href="{{route('projet.show',$projet)}}"> {{$projet->nom}}</a></h4>
+                                                        <p class="card-text"> {{$projet->description}}<a class="mask" href="https://themes.3rdwavemedia.com/bootstrap-templates/resume/instance-bootstrap-portfolio-theme-for-developers/" target="_blank"><i class="icon fa fa-search-plus"></i></a></p>
+                                                        @can('delete', $projet)
+                                                            <button type="button" onclick="event.preventDefault(); document.getElementById('delete-{{$projet->id}}').submit();" class="btn-trash">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"></path>
+                                                                            </svg>
+                                                            </button>
+
+                                                            <form id="delete-{{$projet->id}}" action="{{route('projet.destroy',$projet)}}" style="display:none;" method="post">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                            </form> 
+                                                        @endcan
+
+                                                        @can('update', $projet)
+                                                        <a href="{{route('projet.edit',$projet->id)}}" type="button" class="btn-pen">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"></path>
+                                                                </svg>
+                                                            </a>
+                                                        @endcan
+                                                    </div><!--//card-block-->
+                                                
+                                                </div><!--//theme-card-->
+                                            </div>
+                                        @endforeach
+                                        {{-- <div class="col-md-4 col-12 mb-3">
                                             <div class="theme-card">
                                                 <a href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/velocity-bootstrap-theme-for-startup-products/" target="_blank"><img class="img-fluid" src="../images/demo/theme-velocity.png" alt="screenshot" /></a>
                                                 <div class="card-block">
@@ -311,11 +325,11 @@
                                                 </div><!--//card-block-->
                                                 <a class="mask" href="https://themes.3rdwavemedia.com/website-templates/responsive-wedding-invitation-template-matrimony/" target="_blank"><i class="icon fa fa-search-plus"></i></a>
                                             </div><!--//theme-card-->
-                                        </div>    
+                                        </div>     --}}
                                     </div><!--//row-->
                                 </div><!--//section-block-->
                             </section><!--//doc-section-->
-                            
+{{--                             
                             <section id="free-themes" class="doc-section">
                                 <h2 class="section-title"> Favoris </h2>
                                 <div class="section-block">
@@ -383,7 +397,7 @@
                                         </div>
                                     </div><!--//row-->
                                 </div><!--//section-block-->
-                            </section><!--//doc-section-->
+                            </section><!--//doc-section--> --}}
                                                         
                         </div><!--//content-inner-->
                     </div><!--//doc-content-->

@@ -213,7 +213,7 @@ class ProjetController extends Controller
     {
         $projet->delete($projet);
 
-        return redirect()->route('projet.index');
+        return redirect()->route('home');
     }
 
     public function deleteFile(Fichier $file)

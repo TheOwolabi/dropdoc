@@ -21,8 +21,6 @@
     <div class="signup__overlay"></div>
   </div>
   <div class="container__child signup__form">
-    <form action="#">
-        
             <div class="flash-message">
                 @foreach (['danger', 'warning', 'success', 'info'] as $msg)
                     @if(Session::has('alert-' . $msg))
@@ -110,7 +108,6 @@
                 </div>
             
         </div>
-        </form>
         </div>
     </div>
 </div>

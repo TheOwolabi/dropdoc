@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\Projet;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/profile', function () {
-    return view('profile');
+    $projets = Projet::where('user_id',Auth::id())->get();
+        return view('profile',compact('projets'));
 });
 
 Auth::routes(['verify'=>true]);
