@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::resource('/', 'App\Http\Controllers\RootController');
-
+Route::get('/', function () {
+    return view('upload');
+});
 Route::get('/profile', function () {
     return view('profile');
 });
