@@ -17,6 +17,7 @@ html, body {
   margin-bottom: -50px;
 }
 
+
 .page-wrapper:after {
   content: "";
   display: block;
@@ -80,13 +81,26 @@ code {
   -moz-box-shadow: none;
   box-shadow: none;
 }
-
+.btn-prima {
+  background: #40babd;
+  border: 1px solid #40babd;
+  color: #fff !important;
+  margin-left: 72em;
+  margin-top: -6em;
+}
 .btn-primary, a.btn-primary {
   background: #40babd;
   border: 1px solid #40babd;
   color: #fff !important;
 }
-
+.btn-prima:hover, .btn-prima:focus, .btn-prima:active {
+  background: #3aa7aa;
+  color: #fff !important;
+  border: 1px solid #3aa7aa;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .btn-primary.hover, .btn-primary:not(:disabled):not(.disabled):active:focus, a.btn-primary:hover, a.btn-primary:focus, a.btn-primary:active, a.btn-primary.active, a.btn-primary.hover, a.btn-primary:not(:disabled):not(.disabled):active:focus {
   background: #3aa7aa;
   color: #fff !important;
@@ -394,7 +408,7 @@ select {
 
 .top-search-box {
   position: absolute;
-  right: 15px;
+  right: 150px;
   top: 15px;
 }
 
