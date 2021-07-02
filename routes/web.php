@@ -20,6 +20,14 @@ Route::get('/', function () {
 Route::get('/print', function () {
     return view('print');
 });
+Route::get('/print3', function () {
+    return view('print_reseaux');
+});Route::get('/print2', function () {
+    return view('print_data');
+});
+Route::get('/print1', function () {
+    return view('print_syst');
+});
 Route::get('/profile', function () {
     return view('profile');
 });

@@ -67,12 +67,13 @@
                     <h1 class="logo">
                       
                         <span aria-hidden="true" class="icon_documents_alt icon"></span>
-                        <span class="text-highlight">Information</span><span class="text-bold"> Technology</span>
+                        <span class="text-highlight">Systèmes</span><span class="text-bold"> Embarqués</span>
                         
                     </h1>
-                    
                 </div><!--//branding-->
-                <p class="col-md-6 mx-auto">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis sequi, facere, animi beatae, excepturi quos impedit aperiam porro voluptatibus minima numquam deleniti laudantium nemo blanditiis consectetur temporibus ducimus totam delectus!</p>	             <div class="main-search-box pt-3 pb-4 d-inline-block">
+                <p class="col-md-6 mx-auto">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis sequi, facere, animi beatae, excepturi quos impedit aperiam porro voluptatibus minima numquam deleniti laudantium nemo blanditiis consectetur temporibus ducimus totam delectus!</p>
+
+	             <div class="main-search-box pt-3 pb-4 d-inline-block">
 	                 <form class="form-inline search-form justify-content-center" action="" method="get">
 	            
 			            <input type="text" placeholder="Enter search terms..." name="search" class="form-control search-input">

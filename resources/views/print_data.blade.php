@@ -67,7 +67,7 @@
                     <h1 class="logo">
                       
                         <span aria-hidden="true" class="icon_documents_alt icon"></span>
-                        <span class="text-highlight">Information</span><span class="text-bold"> Technology</span>
+                        <span class="text-highlight"> Data </span><span class="text-bold"> Science </span>
                         
                     </h1>
                     

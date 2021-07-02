@@ -18,35 +18,54 @@
         
     </head>
     <body class="antialiased">
+        
+
         <!------------------- NAV --------------->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="{{ url('/') }}"><span class="text-highlight">Drop</span><span class="text-bold">Docs</span></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                   
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a></li>
+       
+
+    <div class="container px-4 px-lg-5">
+            
+            <a class="navbar-brand" href="{{ url('/') }}"><span class="text-highlight">Drop</span><span class="text-bold">Docs</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+               
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a></li>
+                    <li class="nav-item">
+                <div class="dropdown">
+                    <button class="btn btn-outline-dark mx-8">Affichage</button>
+                    <div class="dropdown-content">
+                        <a href="/print">IT</a>
+                        <a href="/print">Data Science</a>
+                        <a href="/print">Sécurité & Réseaux</a>
+                        <a href="/print">Systèmes embarqués</a>
+                    </div>
+                </div>
+                </li>
+        
+
                     
-                    </ul>
+                </ul>
+             
+        </div>
+                <form class="d-flex">
+                @if (Route::has('login'))
+                     @auth
+                     <div class="text-center"><a class="btn btn-outline-dark mx-4" href="/login"> <i class="bi bi-person-circle me-1"> profile </i> </a></div>
+                    @else
+                    <div class="text-center"><a class="btn btn-outline-dark mx-4" href="/login"> <i class="bi bi-person-circle me-1"> Login </i> </a></div>
 
-                    <form class="d-flex">
-                    @if (Route::has('login'))
-                         @auth
-                         <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/login"> <i class="bi bi-person-circle me-1"> profile </i> </a></div>
-                        @else
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/login"> <i class="bi bi-person-circle me-1"> Login </i> </a></div>
-
-                        @if (Route::has('register'))
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/register">  <i class="bi bi-person-circle me-1"> Register </i> </a></div>
-                        @endif
-                    @endauth
-                
-                 @endif
-                    </form>
-            </div>
-       </div>
+                    @if (Route::has('register'))
+                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/register">  <i class="bi bi-person-circle me-1"> Register </i> </a></div>
+                    @endif
+                @endauth
+            
+             @endif
+                </form>
+        </div>
+   </div>
     </nav>  <!------------------- /NAV --------------->
     <!-- ******Header****** -->
      <header class="header text-center">
@@ -257,6 +276,8 @@
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; DropDocs 2021</p></div>
         </footer>
+
+        
      
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>

@@ -21,7 +21,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
             
-                <a class="navbar-brand" href="{{ url('/') }}"><span class="text-highlight">Drop</span><span class="text-bold">Docs</span></a>
+                <a class="navbar-brand" href="{{ url('/') }}"><span class="text-highlight">Drop</span><span class="text-bold">Docs </span></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 
@@ -67,7 +67,7 @@
                     <h1 class="logo">
                       
                         <span aria-hidden="true" class="icon_documents_alt icon"></span>
-                        <span class="text-highlight">Information</span><span class="text-bold"> Technology</span>
+                        <span class="text-highlight"> Sécurité & </span><span class="text-bold"> Réseaux </span>
                         
                     </h1>
                     
