@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\Projet;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/profile', function () {
+    $projets = Projet::where('user_id',Auth::id())->get();
+        return view('profile',compact('projets'));
 });
 
 Auth::routes(['verify'=>true]);
@@ -38,3 +41,6 @@ Route::get('/upload', 'App\Http\Controllers\ProjetController@upload')->name('upl
 
 
 Route::post('/upload', 'App\Http\Controllers\ProjetController@sendToAWS')->name('send');
+
+Route::resource('/', 'App\Http\Controllers\RootController');
+
