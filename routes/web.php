@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\Projet;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+<<<<<<< HEAD
 Route::get('/', function () {
     return view('welcome');
 });
@@ -28,8 +30,12 @@ Route::get('/print3', function () {
 Route::get('/print1', function () {
     return view('print_syst');
 });
+=======
+
+>>>>>>> 203e213a0c016a1977856493660a96e4970a8206
 Route::get('/profile', function () {
-    return view('profile');
+    $projets = Projet::where('user_id',Auth::id())->get();
+        return view('profile',compact('projets'));
 });
 
 Auth::routes(['verify'=>true]);
@@ -46,4 +52,12 @@ Route::resource('/projet', 'App\Http\Controllers\ProjetController');
 
 Route::resource('/filiere', 'App\Http\Controllers\FiliereController');
 
-Route::resource('/file', 'App\Http\Controllers\FileController');
+Route::post('/projet/{file}', 'App\Http\Controllers\ProjetController@deleteFile')->name('fichier.delete');
+
+Route::get('/upload', 'App\Http\Controllers\ProjetController@upload')->name('upload');
+
+
+Route::post('/upload', 'App\Http\Controllers\ProjetController@sendToAWS')->name('send');
+
+Route::resource('/', 'App\Http\Controllers\RootController');
+

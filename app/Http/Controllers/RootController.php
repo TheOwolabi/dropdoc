@@ -2,18 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Filiere;
+use App\Models\Projet;
 use Illuminate\Http\Request;
 
-class FiliereController extends Controller
+class RootController extends Controller
 {
-
-    public function __construct()
-    {     
-        $this->middleware(['auth']);
-    }
-
-    
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +14,8 @@ class FiliereController extends Controller
      */
     public function index()
     {
-        //
+        $projets = Projet::all();
+        return view('welcome',compact('projets'));
     }
 
     /**
@@ -31,7 +25,7 @@ class FiliereController extends Controller
      */
     public function create()
     {
-        return view('filiere.create');
+        //
     }
 
     /**
@@ -42,19 +36,16 @@ class FiliereController extends Controller
      */
     public function store(Request $request)
     {
-        Filiere::create([
-            'nom' => $request->nom,
-            'description' => $request->description,
-        ]);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Filiere  $filiere
+     * @param  \App\Models\Projet  $projet
      * @return \Illuminate\Http\Response
      */
-    public function show(Filiere $filiere)
+    public function show(Projet $projet)
     {
         //
     }
@@ -62,10 +53,10 @@ class FiliereController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Filiere  $filiere
+     * @param  \App\Models\Projet  $projet
      * @return \Illuminate\Http\Response
      */
-    public function edit(Filiere $filiere)
+    public function edit(Projet $projet)
     {
         //
     }
@@ -74,10 +65,10 @@ class FiliereController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Filiere  $filiere
+     * @param  \App\Models\Projet  $projet
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Filiere $filiere)
+    public function update(Request $request, Projet $projet)
     {
         //
     }
@@ -85,10 +76,10 @@ class FiliereController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Filiere  $filiere
+     * @param  \App\Models\Projet  $projet
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Filiere $filiere)
+    public function destroy(Projet $projet)
     {
         //
     }

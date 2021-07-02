@@ -12,6 +12,12 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
+    
+    public function projets()
+    {
+      return $this->hasMany(Projet::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

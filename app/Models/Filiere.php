@@ -13,4 +13,9 @@ class Filiere extends Model
         'nom',
         'description',
     ];
+
+    public function projet()
+    {
+        return $this->hasMany(Projet::class);
+    }
 }

@@ -18,7 +18,8 @@
 
 <div class="container-fluid mt-4 ">
     <div id="collapseExample" class="col-md-5 mx-auto mt-4 bg-light shadow-sm p-4 ">
-        <form action="{{route('projet.store')}}" class="" method="post" enctype="multipart/form-data">  
+        <form action="{{route('projet.update',$projet)}}" class="" method="post" enctype="multipart/form-data">  
+            @method('PUT')
             @csrf
 
             <center>
@@ -66,7 +67,7 @@
                     <center>
                         <label class="" for="debut">  <strong>Quand a débuté ce projet ? </strong></label>
                         
-                        <input type="date" id="debut" name="debut" class="form-control @error('debut') is-invalid @enderror">
+                        <input type="date" id="debut" name="debut" class="form-control @error('debut') is-invalid @enderror" value="{{$projet->debut?? old('debut') }}">
                         @error('debut')
                             <span class="invalid-feedback">
                                 {{$message}}
@@ -79,7 +80,7 @@
                     <center>
                         <label class="" for="fin">  <strong>Quand se termine t'il ? </strong></label>
                         
-                        <input type="date" id="fin" name="fin" class="form-control @error('fin') is-invalid @enderror">
+                        <input type="date" id="fin" name="fin" class="form-control @error('fin') is-invalid @enderror" value="{{$projet->fin?? old('fin') }}">
                         @error('fin')
                             <span class="invalid-feedback">
                                 {{$message}}
@@ -92,9 +93,11 @@
                     <center> <label for="filiere"><strong>Filière</strong></label> 
     
                         <select name="filiere" id="filiere" class="form-control @error('filiere') is-invalid @enderror">
-                            <option value="" style="display: none;">  </option>
+                            <option value="{{$projet->filiere->id}}" > {{$projet->filiere->nom ?? old('filiere') }} </option>
                             @foreach ($filieres as $filiere)
-                                <option value="{{$filiere->id}}"> {{$filiere->nom}} </option>
+                                @if ($filiere->nom != $projet->filiere->nom  )
+                                    <option value="{{$filiere->id}}"> {{$filiere->nom}} </option> 
+                                @endif
                             @endforeach
                         </select>
                        
@@ -109,7 +112,7 @@
                 <div class="container mt-5">
                     <h3 class="text-center mb-5">Rajoute des fichiers </h3>
                     {{-- <form action="{{route('projet.store')}}" method="post" enctype="multipart/form-data"> --}}
-                        {{-- @csrf --}}
+                        @csrf
                         @if ($message = Session::get('success'))
                             <div class="alert alert-success">
                                 <strong>{{ $message }}</strong>
@@ -137,9 +140,9 @@
                             <label class="custom-file-label" for="images">Choose image</label>
                         </div>
             
-                        {{-- <button type="submit" name="save" class="btn btn-primary btn-block mt-4">
+                        <button type="submit" name="save" class="btn btn-primary btn-block mt-4">
                             Upload les fichiers
-                        </button> --}}
+                        </button>
                     {{-- </form> --}}
                 </div>
             
@@ -151,7 +154,7 @@
             
 
             <div class="d-flex justify-content-center">
-                <button type="submit" name="submit" class="btn btn-outline-primary shadow-sm ">Ajouter</button>
+                <button type="submit" name="submit" class="btn btn-outline-primary shadow-sm ">Modifier</button>
             </div>
         </form>
     </div>

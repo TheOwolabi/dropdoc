@@ -9,6 +9,17 @@ class Projet extends Model
 {
     use HasFactory;
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function filiere()
+    {
+        return $this->belongsTo(Filiere::class);
+    }
+
+
     protected $fillable = [
         'nom',
         'description',
@@ -18,4 +29,5 @@ class Projet extends Model
         'user_id',
         'filiere_id'
     ];
+
 }
