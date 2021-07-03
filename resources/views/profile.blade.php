@@ -19,6 +19,8 @@
     <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="../css/styles.css">
 
+    
+
 </head> 
 
 <body>
@@ -36,24 +38,28 @@
                     </h1>
                 </div><!--//branding-->
                 <ol class="breadcrumb">
-<<<<<<< HEAD
-                    <li class="breadcrumb-item"><a href="/">Home</a></li>
-=======
                     <li class="breadcrumb-item"><a href="/">Acceuil</a></li>
->>>>>>> 203e213a0c016a1977856493660a96e4970a8206
                     <li class="breadcrumb-item active">profile</li>
                 </ol>
                
                 <div class="top-search-box"> 
 	                 <form class="form-inline search-form justify-content-center" action="" method="get">
 	            
-			            <input type="text" placeholder="Search..." name="search" class="form-control search-input">
+                         @csrf
+			            <input autocomplete="off" type="text" placeholder="Search..." name="search" id="search" class="form-control search-input">
 			            
 			            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
 			            
 			        </form>
+
+                    <div id="projetList">
+                
+                     </div>
              
-            </div><!--//container-->
+            </div>
+            
+            
+            <!--//container-->
             
         <div>
             <button type="button" class="btn btn-prima">
@@ -440,7 +446,39 @@
     <script type="text/javascript" src="../plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>      
     <script type="text/javascript" src="../plugins/stickyfill/dist/stickyfill.min.js"></script>                                                             
     <script type="text/javascript" src="../js/main.js"></script> 
- 
+    
+<!-- Searching -->
+    <script>
+    $(document).ready(function () {
+        $('#search').keyup(function () {
+            var data = $(this).val();
+            if (data != '') {
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{ route('projets.list') }}",
+                    method: "POST",
+                    data: {data: data, _token: _token},
+                    success: function (data) {
+                        $('#projetList').fadeIn();
+                        $('#projetList').html(data);
+                    }
+                });
+            
+            }
+            
+    
+    
+    });
+
+});
+
+$(document).on('click', 'li', function () {
+            $('#search').val($(this).text());
+            $('#projetList').fadeOut();
+        });
+
+</script>
+
 </body>
 </html> 
 

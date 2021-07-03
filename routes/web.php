@@ -15,24 +15,6 @@ use App\Models\Projet;
 |
 */
 
-<<<<<<< HEAD
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/print', function () {
-    return view('print');
-});
-Route::get('/print3', function () {
-    return view('print_reseaux');
-});Route::get('/print2', function () {
-    return view('print_data');
-});
-Route::get('/print1', function () {
-    return view('print_syst');
-});
-=======
-
->>>>>>> 203e213a0c016a1977856493660a96e4970a8206
 Route::get('/profile', function () {
     $projets = Projet::where('user_id',Auth::id())->get();
         return view('profile',compact('projets'));
@@ -61,3 +43,5 @@ Route::post('/upload', 'App\Http\Controllers\ProjetController@sendToAWS')->name(
 
 Route::resource('/', 'App\Http\Controllers\RootController');
 
+
+Route::post('/list',[App\Http\Controllers\SearchController::class, 'list'])->name('projets.list');

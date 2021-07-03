@@ -46,25 +46,12 @@
                 </li>
         
 
-<<<<<<< HEAD
-                    
-                </ul>
-             
-        </div>
-                <form class="d-flex">
-                @if (Route::has('login'))
-                     @auth
-                     <div class="text-center"><a class="btn btn-outline-dark mx-4" href="/login"> <i class="bi bi-person-circle me-1"> profile </i> </a></div>
-                    @else
-                    <div class="text-center"><a class="btn btn-outline-dark mx-4" href="/login"> <i class="bi bi-person-circle me-1"> Login </i> </a></div>
-=======
                     <form class="d-flex">
                     @if (Route::has('login'))
                          @auth
                          <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/profile"> <i class="bi bi-person-circle me-1"> profile </i> </a></div>
                         @else
                         <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/login"> <i class="bi bi-person-circle me-1"> Login </i> </a></div>
->>>>>>> 203e213a0c016a1977856493660a96e4970a8206
 
                     @if (Route::has('register'))
                     <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/register">  <i class="bi bi-person-circle me-1"> Register </i> </a></div>
@@ -92,23 +79,15 @@
             </div><!--//tagline-->
                 
 	        <div class="main-search-box pt-3 pb-4 d-inline-block">
-	            <form class="form-inline search-form justify-content-center" action="" method="get"> 
-			        <input type="text" placeholder="Enter search terms..." name="search" class="form-control search-input">        
+	            <form class="form-inline search-form justify-content-center" action="" method="post">
+                 @csrf  
+			        <input autocomplete="off" type="text" placeholder="Enter search terms..." name="search" id="search" class="form-control search-input">        
 			        <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
 			            
-<<<<<<< HEAD
-			    </form>
-	        </div>
-                 
-            <div class="social-container">
-	            <!--  Github reposotory -->
-	            <div class="github-btn mb-2">
-                    <a class="github-button" href="https://github.com/TheOwolabi" data-size="large" aria-label="Follow @xriley on GitHub">Follow @TheOwolab</a>
-	            </div>
-            </div><!--//social-container-->
-                 
-=======
 			        </form>
+
+                    <div id="projetList">
+                    </div>
 	             </div>
 {{--                  
                 <div class="social-container">
@@ -125,28 +104,11 @@
                     <div class="fb-like" data-href="https://themes.3rdwavemedia.com/" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>         
                  </div><!--//social-container-->
                   --}}
->>>>>>> 203e213a0c016a1977856493660a96e4970a8206
                 
         </div><!--//container-->
     </header><!--//header-->
         
         <!-- Section-->
-<<<<<<< HEAD
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder"> MASK DETECTOR</h5>
-                                <!-- Product price-->
-                                Author : Ulysse
-=======
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -163,7 +125,6 @@
                                     <!-- Product price-->
                                     Author : <a href=""> {{$projet->user->firstname}}</a>
                                 </div>
->>>>>>> 203e213a0c016a1977856493660a96e4970a8206
                             </div>
                         </div>
                             <!-- Product actions-->
@@ -171,156 +132,7 @@
                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ...</a></div>                            </div>
                         </div>
                     </div>
-<<<<<<< HEAD
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Special Item</h5>
-                                    <!-- Product reviews-->
-                                    
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through"></span>
-                                    
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                           
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through"></span>
-                                  
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Popular Item</h5>
-                                    <!-- Product reviews-->
-                                 
-                                    <!-- Product price-->
-                                   
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                          
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through"></span>
-                               
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    <!-- Product price-->
-                             
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Special Item</h5>
-                            
-                                    
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Popular Item</h5>
-                                    <!-- Product reviews-->
-                                   
-                                    
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
-=======
                    @endforeach
->>>>>>> 203e213a0c016a1977856493660a96e4970a8206
                 </div>
             </div>
         </section>
@@ -335,6 +147,39 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="../js/scripts.js"></script>
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <script>
+    $(document).ready(function () {
+        $('#search').keyup(function () {
+            var data = $(this).val();
+            if (data != '') {
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{ route('projets.list') }}",
+                    method: "POST",
+                    data: {data: data, _token: _token},
+                    success: function (data) {
+                        $('#projetList').fadeIn();
+                        $('#projetList').html(data);
+                    }
+                });
+            
+            }
+            
+    
+    
+    });
+
+});
+
+$(document).on('click', 'li', function () {
+            $('#search').val($(this).text());
+            $('#projetList').fadeOut();
+        });
+
+</script>
         </div>
     </body>
 </html>
