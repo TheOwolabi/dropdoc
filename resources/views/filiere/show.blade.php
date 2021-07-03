@@ -32,10 +32,9 @@
                 <div class="dropdown">
                  <button class="btn btn-outline-dark mx-8">Filières</button>
                  <div class="dropdown-content">
-                   <a href="/filiere/1">IT</a>
-                   <a href="/filiere/3">Data Science</a>
-                   <a href="">Sécurité & Réseaux</a>
-                   <a href="/filiere/2">Systèmes embarqués</a>
+                    @foreach ($filieres as $fil)
+                        <a href="{{route('filiere.show',$fil)}}">{{$fil->nom}}</a>
+                    @endforeach
                  </div>
                     </div>
              </li>

@@ -22,7 +22,7 @@
                             @endcan
                          </div>
                          <div class="col-md-4">
-                            Filiere : <a href=""> {{$projet->filiere->nom}} </a> 
+                            Filiere : <a href="{{route('filiere.show',$projet->filiere)}}"> {{$projet->filiere->nom}} </a> 
                           </div>
                          <div class="col-md-4">
                             Autheur : <a href=""><i>{{$projet->user->firstname}}</i></a>  

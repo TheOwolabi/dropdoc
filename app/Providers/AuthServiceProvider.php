@@ -15,6 +15,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
          'App\Models\Projet' => 'App\Policies\ProjetPolicy',
          'App\Models\Fichier' => 'App\Policies\FilePolicy',
+         'App\Models\Filiere' => 'App\Policies\FilierePolicy',
+         'App\Models\User' => 'App\Policies\AdminPolicy',
     ];
 
     /**

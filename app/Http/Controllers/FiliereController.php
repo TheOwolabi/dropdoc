@@ -22,7 +22,8 @@ class FiliereController extends Controller
      */
     public function index()
     {
-        //
+        $filieres = Filiere::all();
+        return view('filiere.all',compact('filieres'));
     }
 
     /**
@@ -57,8 +58,10 @@ class FiliereController extends Controller
      */
     public function show(Filiere $filiere)
     {
+        $filieres = Filiere::all();
+       
         $projets = Projet::where('filiere_id',$filiere->id)->get();
-                return view('filiere.show',compact(['filiere','projets']));
+         return view('filiere.show',compact(['filieres','filiere','projets']));
     }
 
     /**
@@ -69,7 +72,7 @@ class FiliereController extends Controller
      */
     public function edit(Filiere $filiere)
     {
-        //
+        return view('filiere.edit', compact('filiere'));
     }
 
     /**
@@ -81,7 +84,12 @@ class FiliereController extends Controller
      */
     public function update(Request $request, Filiere $filiere)
     {
-        //
+        $filiere->update([
+            'nom' => $request->nom,
+            'description' => $request->description
+        ]);
+
+        return redirect()->route('filiere.show',compact('filiere'));
     }
 
     /**
@@ -92,6 +100,8 @@ class FiliereController extends Controller
      */
     public function destroy(Filiere $filiere)
     {
-        //
+        $filiere->delete();
+        return redirect()->route('filiere.index');
+
     }
 }

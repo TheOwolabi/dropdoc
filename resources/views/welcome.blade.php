@@ -37,10 +37,11 @@
                 <div class="dropdown">
                     <button class="btn btn-outline-dark mx-8">Filières</button>
                     <div class="dropdown-content">
-                    <a href="/filiere/1">IT</a>
-                   <a href="/filiere/3">Data Science</a>
-                   <a href="">Sécurité & Réseaux</a>
-                        <a href="/filiere/2">Systèmes embarqués</a>
+
+                        @foreach ($filieres as $filiere)
+                        <a href="{{route('filiere.show',$filiere)}}">{{$filiere->nom}}</a>
+                        @endforeach
+        
                     </div>
                 </div>
                 </li>
@@ -111,9 +112,9 @@
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="row  row-cols-2 row-cols-md-3 ">
                    @foreach ($projets as $projet )
-                    <div class="col mb-5">
+                    <div class="col-md-4">
                         <div class="card h-100">
                             <!-- Product image-->
                             <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />

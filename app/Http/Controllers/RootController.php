@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Projet;
+use App\Models\Filiere;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,8 @@ class RootController extends Controller
     public function index()
     {
         $projets = Projet::all();
-        return view('welcome',compact('projets'));
+        $filieres = Filiere::all();
+        return view('welcome',compact(['projets','filieres']));
     }
 
  
@@ -30,6 +32,11 @@ class RootController extends Controller
     {
         $projets = Projet::where('user_id',Auth::id())->get();
         return view('profile',compact('projets'));
+    }
+
+    public function dash()
+    {
+        return view('dashboard');
     }
 
     /**
