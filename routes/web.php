@@ -15,10 +15,6 @@ use App\Models\Projet;
 |
 */
 
-Route::get('/profile', function () {
-    $projets = Projet::where('user_id',Auth::id())->get();
-        return view('profile',compact('projets'));
-});
 
 Auth::routes(['verify'=>true]);
 
@@ -42,6 +38,7 @@ Route::get('/upload', 'App\Http\Controllers\ProjetController@upload')->name('upl
 Route::post('/upload', 'App\Http\Controllers\ProjetController@sendToAWS')->name('send');
 
 Route::resource('/', 'App\Http\Controllers\RootController');
+Route::get('/profile', 'App\Http\Controllers\RootController@profile');
 
 
 Route::post('/list',[App\Http\Controllers\SearchController::class, 'list'])->name('projets.list');

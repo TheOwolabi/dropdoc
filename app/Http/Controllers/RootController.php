@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Projet;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class RootController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth'])->except('index');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -18,14 +25,11 @@ class RootController extends Controller
         return view('welcome',compact('projets'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+ 
+    public function profile()
     {
-        //
+        $projets = Projet::where('user_id',Auth::id())->get();
+        return view('profile',compact('projets'));
     }
 
     /**
