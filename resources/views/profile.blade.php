@@ -455,13 +455,18 @@
     <script>
     $(document).ready(function () {
         $('#search').keyup(function () {
+
+            
+            var projets = <?php echo json_encode($projets, JSON_HEX_TAG); ?>;
+            
+            //console.log(projets);
             var data = $(this).val();
             if (data != '') {
                 var _token = $('input[name="_token"]').val();
                 $.ajax({
                     url: "{{ route('projets.list') }}",
                     method: "POST",
-                    data: {data: data, _token: _token},
+                    data: {data: data, _token: _token, projets: projets},
                     success: function (data) {
                         $('#projetList').fadeIn();
                         $('#projetList').html(data);

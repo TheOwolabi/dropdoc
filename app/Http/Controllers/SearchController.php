@@ -10,8 +10,23 @@ class SearchController extends Controller
     function list(Request $request)
     {
         $data = $request->get('data');
-        $data = Projet::where('nom', 'LIKE', "%{$data}%")->orWhere('description', 'LIKE', "%{$data}%")->get();
+        $prs = $request->get('projets');
+        $ids = [];
+        
+        foreach ($prs as $projet) {
+            $i =  (int)$projet['id'];
+            array_push( $ids, $i);
+
+            
+        }
+        
+        
+
+
+        $dat = Projet::where('nom', 'LIKE', "%{$data}%")->orWhere('description', 'LIKE', "%{$data}%")->get();
         $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+
+        $data = $dat->only($ids);
 
         foreach ($data as $row) {
             $output .= '
