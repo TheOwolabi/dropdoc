@@ -10,14 +10,16 @@ class SearchController extends Controller
     function list(Request $request)
     {
         $data = $request->get('data');
-        $data = Projet::where('nom', 'LIKE', "%{$data}%")->get();
+        $data = Projet::where('nom', 'LIKE', "%{$data}%")->orWhere('description', 'LIKE', "%{$data}%")->get();
         $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
 
         foreach ($data as $row) {
             $output .= '
-        <li><a href="#" class="ml-2"  style="color:black;font-weight: bold;">' . $row->nom . '</a></li>';
+        <li><a href="projet/'.$row->id.'" class="ml-2"  style="color:black;font-weight: bold;">' . $row->nom . '</a></li>';
         }
         $output .= '</ul>';
         echo $output;
     }
 }
+
+
