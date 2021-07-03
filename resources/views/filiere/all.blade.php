@@ -9,6 +9,9 @@
             <a href="{{route('filiere.create')}}" class="btn btn-success">AJOUTER filiere</a>
         </div> --}}
 
+        <div class="d-flex justify-content-center">
+        <a href="filiere/create" class="btn btn-success  col-md-2">AJOUTER</a>  
+        </div>
         @foreach ($filieres as $filiere)
          <div class="col-md-4 mx-auto">
              <div class="card mt-4">
