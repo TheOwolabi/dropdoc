@@ -30,12 +30,12 @@
                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a></li>
                <li class="nav-item">
                 <div class="dropdown">
-                 <button class="btn btn-outline-dark mx-8">Affichage</button>
+                 <button class="btn btn-outline-dark mx-8">Filières</button>
                  <div class="dropdown-content">
-                   <a href="/print">IT</a>
-                   <a href="/print">Data Science</a>
-                   <a href="/print">Sécurité & Réseaux</a>
-                   <a href="/print">Systèmes embarqués</a>
+                   <a href="/filiere/1">IT</a>
+                   <a href="/filiere/3">Data Science</a>
+                   <a href="">Sécurité & Réseaux</a>
+                   <a href="/filiere/2">Systèmes embarqués</a>
                  </div>
                     </div>
              </li>
@@ -65,14 +65,24 @@
             <div class="container">
                 <div class="branding">
                     <h1 class="logo">
+
+                    @php
+                         $var = explode(' ',trim($filiere->nom));
+                         unset($var[0]);
+
+                        $var = implode(' ', $var);
+                        
+                    @endphp
+
                       
-                        <span aria-hidden="true" class="icon_documents_alt icon"></span>
-                        <span class="text-highlight">Information</span><span class="text-bold"> Technology</span>
+                        <span aria-hidden="true" class="icon_documents_alt icon"></span> 
+                        
+                        <span class="text-highlight"> {{explode(' ',trim($filiere->nom))[0] }}</span><span class="text-bold"> {{ $var}} </span>
                         
                     </h1>
                     
                 </div><!--//branding-->
-                <p class="col-md-6 mx-auto">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis sequi, facere, animi beatae, excepturi quos impedit aperiam porro voluptatibus minima numquam deleniti laudantium nemo blanditiis consectetur temporibus ducimus totam delectus!</p>	             <div class="main-search-box pt-3 pb-4 d-inline-block">
+                <p class="col-md-6 mx-auto">{{$filiere->description}}</p>	             <div class="main-search-box pt-3 pb-4 d-inline-block">
 	                 <form class="form-inline search-form justify-content-center" action="" method="get">
 	            
 			            <input type="text" placeholder="Enter search terms..." name="search" class="form-control search-input">
@@ -87,8 +97,9 @@
         
         <!-- Section-->
         <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
+        <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                   @foreach ($projets as $projet )
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
@@ -97,167 +108,18 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder"> MASK DETECTOR</h5>
+                                    <h5 class="fw-bolder"><a href="{{route('projet.show',$projet)}}"> {{$projet->nom}}</a> </h5>
                                     <!-- Product price-->
-                                    Author : Ulysse
+                                    Author : <a href=""> {{$projet->user->firstname}}</a>
                                 </div>
                             </div>
+                        </div>
                             <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ...</a></div>
-                            </div>
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ...</a></div>                            </div>
                         </div>
                     </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Special Item</h5>
-                                    <!-- Product reviews-->
-                                    
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through"></span>
-                                    
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                           
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through"></span>
-                                  
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Popular Item</h5>
-                                    <!-- Product reviews-->
-                                 
-                                    <!-- Product price-->
-                                   
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                          
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through"></span>
-                               
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    <!-- Product price-->
-                             
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                         
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Special Item</h5>
-                                    <!-- Product reviews-->
-                                   
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through"></span>
-                                    
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Popular Item</h5>
-                                    <!-- Product reviews-->
-                                   
-                                    
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ... </a></div>
-                            </div>
-                        </div>
-                    </div>
+                   @endforeach
                 </div>
             </div>
         </section>

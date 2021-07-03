@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Filiere;
+use App\Models\Projet;
 use Illuminate\Http\Request;
 
 class FiliereController extends Controller
@@ -56,7 +57,8 @@ class FiliereController extends Controller
      */
     public function show(Filiere $filiere)
     {
-        return view('filiere.show');
+        $projets = Projet::where('filiere_id',$filiere->id)->get();
+                return view('filiere.show',compact(['filiere','projets']));
     }
 
     /**
