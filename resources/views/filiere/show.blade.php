@@ -32,10 +32,9 @@
                 <div class="dropdown">
                  <button class="btn btn-outline-dark mx-8">Filières</button>
                  <div class="dropdown-content">
-                   <a href="/filiere/1">IT</a>
-                   <a href="/filiere/3">Data Science</a>
-                   <a href="">Sécurité & Réseaux</a>
-                   <a href="/filiere/2">Systèmes embarqués</a>
+                    @foreach ($filieres as $fil)
+                        <a href="{{route('filiere.show',$fil)}}">{{$fil->nom}}</a>
+                    @endforeach
                  </div>
                     </div>
              </li> 
@@ -81,12 +80,14 @@
                 </div><!--//branding-->
                 <p class="col-md-6 mx-auto">{{$filiere->description}}</p>	             <div class="main-search-box pt-3 pb-4 d-inline-block">
 	                 <form class="form-inline search-form justify-content-center" action="" method="get">
-	            
-			            <input type="text" placeholder="Enter search terms..." name="search" class="form-control search-input">
+                        @csrf
+			            <input type="text" autocomplete="off" placeholder="Enter search terms..." name="search" id="search" class="form-control search-input">
 			            
 			            <button type="submit" class="btn search-btn" value="Search"><i class="fas fa-search"></i></button>
 			            
 			        </form>
+                    <div id="projetList">
+                    </div>
 	             </div>
                 
             </div><!--//container-->
@@ -117,7 +118,6 @@
                         </div>
                         @endforeach
                     </div>
-                   
                 </div>
             </div>
         </section>
@@ -130,6 +130,41 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="../js/scripts.js"></script>
+          <!-- jQuery library -->
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
         </div>
+        <script>
+            $(document).ready(function () {
+                $('#search').keyup(function () {
+                    var projets = <?php echo json_encode($projets, JSON_HEX_TAG); ?>;
+                    
+                    var data = $(this).val();
+                    if (data != '') {
+                        var _token = $('input[name="_token"]').val();
+                        $.ajax({
+                            url: "{{ route('projets.list') }}",
+                            method: "POST",
+                            data: {data: data, _token: _token,  projets: projets},
+                            success: function (data) {
+                                $('#projetList').fadeIn();
+                                $('#projetList').html(data);
+                            }
+                        });
+                    
+                    }
+                    
+            
+            
+            });
+        
+        });
+        
+        $(document).on('click', 'li', function () {
+                    $('#search').val($(this).text());
+                    $('#projetList').fadeOut();
+                });
+        
+        </script>
     </body>
 </html>

@@ -27,6 +27,12 @@ class SearchController extends Controller
         $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
 
         $data = $dat->only($ids);
+if ($data->count() == 0) {
+    $output .= '<li> Aucun résultat(s) trouvé(s) </li>';
+
+    $output .= '</ul>';
+        echo $output;
+}else{
 
         foreach ($data as $row) {
             $output .= '
@@ -35,6 +41,7 @@ class SearchController extends Controller
         $output .= '</ul>';
         echo $output;
     }
+}
 }
 
 

@@ -27,8 +27,8 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <a href="{{route('projet.create')}}" type="submit"  class="btn btn-dark">
-                                    {{ __('Nouveau projet') }}
+                                <a href="{{route('filiere.index')}}" type="submit"  class="btn btn-dark">
+                                    {{ __('Les filieres') }}
                                 </a>
                                 <a href="{{route('projet.index')}}" type="submit"  class="btn btn-dark">
                                     {{ __('Tous les projets') }}

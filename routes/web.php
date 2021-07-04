@@ -39,6 +39,7 @@ Route::post('/upload', 'App\Http\Controllers\ProjetController@sendToAWS')->name(
 
 Route::resource('/', 'App\Http\Controllers\RootController');
 Route::get('/profile', 'App\Http\Controllers\RootController@profile');
+Route::get('/dashboard', 'App\Http\Controllers\RootController@dash')->name('dashboard');
 
 
 Route::post('/list',[App\Http\Controllers\SearchController::class, 'list'])->name('projets.list');
