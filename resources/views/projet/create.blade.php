@@ -1,113 +1,143 @@
-@extends('layouts.projet')
 
-@section('content')
-<style>
-    .container {
-        max-width: 500px;
-    }
-    dl, ol, ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-    .imgPreview img {
-        padding: 8px;
-        max-width: 100px;
-    } 
-</style>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700,900&display=swap" rel="stylesheet">
 
-<div class="container-fluid mt-4 ">
-    <div id="collapseExample" class="col-md-5 mx-auto mt-4 bg-light shadow-sm p-4 ">
-        <form action="{{route('projet.store')}}" class="" method="post" enctype="multipart/form-data">  
-            @csrf
+    <link rel="stylesheet" href="../fonts/icomoon/style.css">
 
-            <center>
-            <div class="form-group mt-3">
-                <label for="nom"><strong>Titre</strong></label>
-                <input type="text" class="form-control  @error('nom') is-invalid @enderror" name="nom" id="nom" value="{{$projet->nom ?? old('nom') }}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Style -->
+    <link rel="stylesheet" href="../css/style1.css">
+    
+
+    <title>ajout de projet</title>
+  </head>
+  <body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+       
+
+    <div class="container px-4 px-lg-5">
             
+            <a class="navbar-brand" href="{{ url('/') }}"><span class="text-highlight">Drop</span><span class="text-bold">Docs</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+               
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a></li>
+                    <li class="nav-item">
+                <div class="dropdown">
+                    <button class="btn btn-outline-dark mt-auto">Filières</button>
+                    <div class="dropdown-content">
+                    <a href="/filiere/1">IT</a>
+                   <a href="/filiere/3">Data Science</a>
+                   <a href="">Sécurité & Réseaux</a>
+                        <a href="/filiere/2">Systèmes embarqués</a>
+                    </div>
+                </div>
+                </li>
+                </ul>
+
+                    <form class="d-flex">
+                    @if (Route::has('login'))
+                         @auth
+                         <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/profile"> <i class="bi bi-person-circle me-1"> profile </i> </a></div>
+                        @else
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/login"> <i class="bi bi-person-circle me-1"> Login </i> </a></div>
+
+                    @if (Route::has('register'))
+                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/register">  <i class="bi bi-person-circle me-1"> Register </i> </a></div>
+                    @endif
+                @endauth
+            
+             @endif
+                </form>
+        </div>
+   </div>
+    </nav>
+
+  <div class="content">
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 mr-auto">
+          <h1 class="mb-3">Ajoutez votre projet</h1>
+          <p> Vous êtes ici afin de d'ajouter un projet sur la plateform Dropdocs</p>
+          <p> Vous pourriez ainsi sauvegarder votre projet et ainsi y avoir accès partout où vous disposez d'internet ☺</p>
+          <p> Cela donnera aussi la possibilité à d'autres d'avoir accès à votre projet et en profiter pour ce cultiver ou s'inspirer afin de développer le sien</p>
+          
+        </div>
+        <div class="col-md-6">
+          <div class="box">
+               <h3 class="heading"> Ajout de projet </h3>
+        <form action="{{route('projet.store')}}" class="mb-5" method="post" id="contactForm" name="contactForm">  
+            @csrf
+            <div class="row">
+              
+            <div class="col-md-8 form-group">
+                  <label for="name" class="col-form-label">Titre </label>
+                  <input type="text" class="form-control @error('nom') is-invalid @enderror" name="name" id="name" placeholder="Your name" value="{{$projet->nom ?? old('nom') }}"> 
+                 
                 @error('nom')
                     <span class="invalid-feedback">
                         {{$message}}
                     </span>
                 @enderror
             </div>
-            </center>
-
-            
-
-            {{-- <center>
-                <div class="form-group mt-3">
-                    <label class="btn btn-primary" for="description"> <i class="fa fa-upload"></i> <strong>En quoi consiste ce projet ? </strong></label>
-                    
-                    <input type="file" id="description" name="description" class="form-control-file @error('file') is-invalid @enderror">
-                    @error('description')
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                  <label for="debut" class="col-form-label">Date debut </label>
+                  <input type="date" class="form-control @error('debut') is-invalid @enderror" name="debut" id="debut" placeholder="Your email address">
+                  @error('debut')
+                            <span class="invalid-feedback">
+                                {{$message}}
+                            </span>
+                        @enderror
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                  <label for="fin" class="col-form-label">Date Fin </label>
+                  <input type="date" class="form-control @error('debut') is-invalid @enderror" name="fin" id="fin" placeholder="Your email address">
+                  @error('fin')
+                            <span class="invalid-feedback">
+                                {{$message}}
+                            </span>
+                        @enderror
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                  <label for="message" class="col-form-label">Description du projet </label>
+                  <textarea class="form-control  @error('description') is-invalid @enderror" name="message" id="message" cols="30" rows="7"></textarea>
+                  @error('description')
                         <span class="invalid-feedback">
                             {{$message}}
                         </span>
                     @enderror
                 </div>
-            </center> --}}
-
-            <div class="form-group ">
-                <center> <label for="description"><strong>Décrivez brièvement le projet</strong></label> 
-                    <textarea name="description" class="form-control rounded-0 @error('description') is-invalid @enderror" id="description" cols="1" rows="3">{{$projet->description ?? old('description') }}</textarea>
-                
-                    @error('description')
-                    <span class="invalid-feedback">
-                        {{$message}}
-                    </span>
-                    @enderror
-                </center>
-            </div>
-
-             
-                <div class="form-group mt-3">
-                    <center>
-                        <label class="" for="debut">  <strong>Quand a débuté ce projet ? </strong></label>
-                        
-                        <input type="date" id="debut" name="debut" class="form-control @error('debut') is-invalid @enderror">
-                        @error('debut')
-                            <span class="invalid-feedback">
-                                {{$message}}
-                            </span>
-                        @enderror
-                    </center> 
-                </div>
-
-                <div class="form-group mt-3">
-                    <center>
-                        <label class="" for="fin">  <strong>Quand se termine t'il ? </strong></label>
-                        
-                        <input type="date" id="fin" name="fin" class="form-control @error('fin') is-invalid @enderror">
-                        @error('fin')
-                            <span class="invalid-feedback">
-                                {{$message}}
-                            </span>
-                        @enderror
-                    </center> 
-                </div>
-
-                <div class="form-group ">
-                    <center> <label for="filiere"><strong>Filière</strong></label> 
-    
-                        <select name="filiere" id="filiere" class="form-control @error('filiere') is-invalid @enderror">
-                            <option value="" style="display: none;">  </option>
-                            @foreach ($filieres as $filiere)
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6 form-group">
+                  <label for="filiere" class="col-form-label">Filière</label>
+                  <select class="custom-select @error('filiere') is-invalid @enderror" id="budget" name="budget">
+                    <option selected>Choose...</option>
+                    @foreach ($filieres as $filiere)
                                 <option value="{{$filiere->id}}"> {{$filiere->nom}} </option>
                             @endforeach
-                        </select>
-                       
-                        @error('filiere')
-                            <span class="invalid-feedback">
-                                {{$message}}
-                            </span>
-                        @enderror
-                    </center>
+                    </select>
                 </div>
-
-                <div class="container mt-5">
-                    <h3 class="text-center mb-5">Rajoute des fichiers </h3>
+              </div>
+              
+         
                     {{-- <form action="{{route('projet.store')}}" method="post" enctype="multipart/form-data"> --}}
                         {{-- @csrf --}}
                         @if ($message = Session::get('success'))
@@ -134,26 +164,36 @@
                             <input type="file" name="File[]" class="custom-file-input" id="images" multiple="multiple">
                           
                             
-                            <label class="custom-file-label" for="images">Choose image</label>
+                            <label class="custom-file-label" for="images">Choose file </label>
                         </div>
             
                         {{-- <button type="submit" name="save" class="btn btn-primary btn-block mt-4">
                             Upload les fichiers
                         </button> --}}
                     {{-- </form> --}}
+               
+                <div class="row">
+                <div class="col-md-12">
+                  <input type="submit" value="Ajouter" class="btn btn-block btn-primary rounded-0 py-2 px-4">
+                  <span class="submitting"></span>
                 </div>
-            
-            
-
-
-          
-                            
-            
-
-            <div class="d-flex justify-content-center">
-                <button type="submit" name="submit" class="btn btn-outline-primary shadow-sm ">Ajouter</button>
+              </div>
+            </form>
+            </form>
+            <div id="form-message-warning mt-4"></div> 
+            <div id="form-message-success">
+              projet ajoutez avec succès!
             </div>
-        </form>
+        
     </div>
 </div>
-@endsection
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.validate.min.js"></script>
+    <script src="../js/main2.js"></script>
+
+  </body>
+</html>

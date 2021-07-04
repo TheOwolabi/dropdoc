@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 </li>
-        
+                </ul>
 
                     <form class="d-flex">
                     @if (Route::has('login'))
@@ -102,7 +102,7 @@
                     </div><!--//tweet-->
                     <!-- Replace with your Facebook Button -->
                     <div class="fb-like" data-href="https://themes.3rdwavemedia.com/" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>         
-                 </div><!--//social-container-->
+             </div><!--//social-container-->
                   --}}
                 
         </div><!--//container-->
@@ -131,8 +131,9 @@
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ...</a></div>                            </div>
                         </div>
+                        @endforeach
                     </div>
-                   @endforeach
+                  
                 </div>
             </div>
         </section>
@@ -182,6 +183,6 @@ $(document).on('click', 'li', function () {
         });
 
 </script>
-        </div>
+ </div>
     </body>
 </html>

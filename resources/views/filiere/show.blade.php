@@ -38,10 +38,7 @@
                    <a href="/filiere/2">Systèmes embarqués</a>
                  </div>
                     </div>
-             </li>
-   
-
-               
+             </li> 
            </ul>
 
                     <form class="d-flex">
@@ -118,8 +115,9 @@
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#"> voir plus ...</a></div>                            </div>
                         </div>
+                        @endforeach
                     </div>
-                   @endforeach
+                   
                 </div>
             </div>
         </section>
