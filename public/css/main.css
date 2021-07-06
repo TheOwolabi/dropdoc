@@ -68,10 +68,10 @@ h1,h2,h3,h4,h5,h6 {
 
 p {
 	font-family: Poppins-Regular;
-	font-size: 14px;
+	font-size: 15px;
 	line-height: 1.7;
 	color: #666666;
-	margin: 0px;
+	margin: auto;
 }
 
 ul, li {
@@ -177,8 +177,54 @@ iframe {
     ,#AECFD8,#30CDD4);
 }
 
+.card-text{
+  font-size: 25px;
+  margin: auto;
+}
+.b{
+  position: relative;
+  
+}
+.container-login10 {
+  width: 100%;  
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background: #9053c7;
+  background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: linear-gradient( 
+233deg
+ ,#a5eeff,#1dbde1)
+}
+
 .wrap-login100 {
   width: 960px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 177px 130px 33px 95px;
+}
+
+.wrap-login10{
+  width: 650px;
+  height: 450px;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;

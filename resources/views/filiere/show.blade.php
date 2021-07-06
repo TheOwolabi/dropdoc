@@ -58,8 +58,10 @@
        </div>
     </nav>
             <header class="header text-center">
+            
             <div class="container">
-                <div class="branding">
+            
+            <div class="branding">
                     <h1 class="logo">
 
                     @php

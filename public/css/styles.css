@@ -808,7 +808,9 @@ div .jumbotron{
 .theme-card .card-block {
   padding: 15px;
 }
-
+.wrap-login10 .card-block {
+  margin-bottom: 10em;
+}
 .theme-card .mask {
   display: block;
   visibility: hidden;
@@ -843,6 +845,31 @@ div .jumbotron{
     color: rgb(235 181 175);
     background-color: #ffdee2;
     border-color: #ffdee2
+}
+.card-title{
+  position: relative;
+  bottom: 80px;
+  text-align: center;
+  margin-left: 5em;
+}
+.btn-dow {
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #89ccc9;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
 .btn-trash:hover {
